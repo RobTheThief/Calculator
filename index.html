@@ -1,0 +1,39 @@
+
+     <html>
+        <body>
+            <div class="container-fluid">
+                <header>
+                    <h1>Add 2 things : )</h1>
+                </header>
+
+         <form>
+                <label>number 1</label>
+                <input type="text" name="number1" id="number1" placeholder="enter real number"> <br>
+                <button type="button" class="btn btn-info" onclick="add()">ADD</button><br><br>
+                <button type="button" class="btn btn-info" onclick="submit1()">submit</button><br><br>
+                <div class="screen" id="screen1"></div>
+
+            </form>
+
+            </div> <!-- End Container-->
+
+
+
+        <footer>
+
+        </footer>
+          <script type="text/javascript">
+
+              var nums = [0];
+              function add(){
+                  nums.push(document.getElementById("number1").value);
+              }
+
+              function submit1(){
+                for (var i = 0, sum = 0; i < nums.length; sum += parseFloat(nums[i++])){}
+                  document.getElementById("screen1").innerHTML=parseFloat(sum);
+                }
+          </script>
+
+        </body>
+        </html>
