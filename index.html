@@ -3,15 +3,24 @@
         <body>
             <div class="container-fluid">
                 <header>
-                    <h1>Add 2 things : )</h1>
+                  <h3>It's a</h1>
+                    <h1>ROBULATOR</h1>
+                    <h3>more than a calculator!</h1>
                 </header>
 
          <form>
-                <label>number 1</label>
-                <input type="text" name="number1" id="number1" placeholder="enter real number"> <br>
-                <button type="button" class="btn btn-info" onclick="add()">ADD</button><br><br>
-                <button type="button" class="btn btn-info" onclick="submit1()">submit</button><br><br>
-                <div class="screen" id="screen1"></div>
+                <label>INPUT</label>
+                <input type="number" name="numbers" id="numbers" placeholder="enter real number"> <br>
+
+                <button type="button" class="btn btn-info" onclick="add()">SUM</button><br><br>
+                <button type="button" class="btn btn-info" onclick="submit1()">=</button><br><br>
+                <button type="button" class="btn btn-info" onclick="clear1()">C</button><br><br>
+                <button type="button" class="btn btn-info" onclick="multiply1()">*</button><br><br>
+
+                <div class="screen" id="numdisplay"></div>
+                <div class="screen" id="result"></div>
+                <div class="screen" id="test"></div> <!--display output testing
+
 
             </form>
 
@@ -24,15 +33,47 @@
         </footer>
           <script type="text/javascript">
 
-              var nums = [0];
-              function add(){
-                  nums.push(document.getElementById("number1").value);
-              }
+              var nums = [];
+              var displaynums = [];
+              function add(){        //pushs numbers to the nums array to be added
+                  nums.push(document.getElementById("numbers").value);
+                  var p = nums.length - 1;
+
+if (isNaN(parseFloat(document.getElementById("numbers").value))){nums.pop(nums[p])}  //need to remove last array entry if NaN
+                                        else{
+
+              if (nums.length == 1 && nums[0] >= 0){          //checks if the first element is not negative
+                displaynums.push(document.getElementById("numbers").value);
+                document.getElementById("numdisplay").innerHTML=displaynums.join(" ");
+                                                    } else{
+                    if (parseFloat(nums[p]) <= 0){  //check if number is positive or not to affix "+" symbol
+                      displaynums.push(document.getElementById("numbers").value);
+                      document.getElementById("numdisplay").innerHTML=displaynums.join("");
+                                                    } else{
+                        displaynums.push("+" + document.getElementById("numbers").value);
+                        document.getElementById("numdisplay").innerHTML=displaynums.join("");
+                                                          }
+                                                    }
+                                            }
+                              }
 
               function submit1(){
                 for (var i = 0, sum = 0; i < nums.length; sum += parseFloat(nums[i++])){}
-                  document.getElementById("screen1").innerHTML=parseFloat(sum);
+                  document.getElementById("result").innerHTML="= " + parseFloat(sum);
+                  if (isNaN(sum)){     //checks if answer in NaN and runs clear1() if true
+                    clear1();
+                  }
                 }
+
+              function clear1(){
+                    nums.splice(0,nums.length);
+                    displaynums.splice(0,displaynums.length);
+                    sum = "";
+                    document.getElementById("numdisplay").innerHTML=displaynums;
+                    document.getElementById("result").innerHTML=sum;
+                        }
+
+
           </script>
 
         </body>
