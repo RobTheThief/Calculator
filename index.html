@@ -1,0 +1,122 @@
+
+     <html>
+        <body>
+            <div class="container-fluid">
+                <header>
+                  <h3>It's a</h1>
+                    <h1>ROBULATOR</h1>
+                    <h3>more than a calculator!</h1>
+                </header>
+
+         <form>
+                <label>INPUT</label>
+                <input type="number" name="numbers" id="numbers" placeholder="enter real number"> <br>
+
+                <button type="button" class="btn btn-info" onclick="add()">SUM</button><br><br>
+                <button type="button" class="btn btn-info" onclick="submit1()">=</button><br><br>
+                <button type="button" class="btn btn-info" onclick="clear1()">C</button><br><br>
+                <button type="button" class="btn btn-info" onclick="multiply1()">*</button><br><br>
+                <button type="button" class="btn btn-info" onclick="divide1()">/</button><br><br>
+
+                <div class="screen" id="numdisplay"></div>
+                <div class="screen" id="result"></div>
+                <div class="screen" id="test"></div> <!--display output testing
+
+
+            </form>
+
+            </div> <!-- End Container-->
+
+
+
+        <footer>
+
+        </footer>
+          <script type="text/javascript">
+
+              var nums = [];
+              var displaynums = [];
+              var sum = 0;
+              var multiplier1 = 0;
+              var p = 0;
+              //var multipied = 0
+              function add(){        //pushs numbers to the nums array to be added
+                  nums.push(document.getElementById("numbers").value);
+                  var p = nums.length - 1;
+
+          if (isNaN(parseFloat(document.getElementById("numbers").value))){nums.pop(nums[p])}  //need to remove last array entry if NaN
+                                        else{
+
+              if (nums.length == 1 && nums[0] >= 0){          //checks if the first item is not negative
+                displaynums.push(document.getElementById("numbers").value);
+                document.getElementById("numdisplay").innerHTML=displaynums.join(" ");
+                                                    } else{
+                    if (parseFloat(nums[p]) <= 0){  //check if number is positive or not to affix "+" symbol
+                      displaynums.push(document.getElementById("numbers").value);
+                      document.getElementById("numdisplay").innerHTML=displaynums.join("");
+                                                    } else{
+                        displaynums.push("+" + document.getElementById("numbers").value);
+                        document.getElementById("numdisplay").innerHTML=displaynums.join("");
+                                                          }
+                                                    }
+                                            }
+                              }
+
+              function submit1(){
+                for (var i = 0, sum = 0; i < nums.length; sum += parseFloat(nums[i++])){}
+                  document.getElementById("result").innerHTML="= " + parseFloat(sum);
+                  if (isNaN(sum)){     //checks if answer in NaN and runs clear1() if true
+                    clear1();
+                  }
+                }
+
+              function clear1(){
+                    nums.splice(0,nums.length);
+                    displaynums.splice(0,displaynums.length);
+                    sum = "";
+                    document.getElementById("numdisplay").innerHTML=displaynums;
+                    document.getElementById("result").innerHTML=sum;
+                        }
+
+              function multiply1(){
+                if (nums.length !== 0){
+                    for (var i = 0, sum = 0; i < nums.length; sum += parseFloat(nums[i++])){}
+
+                    nums.push(document.getElementById("numbers").value);
+                    p = nums.length - 1;
+                    if (isNaN(parseFloat(nums[p])) == false){
+                      var multiplied1 = (parseFloat(sum)) * (parseFloat(nums[p]));
+                      clear1();
+                      document.getElementById("result").innerHTML= "=" + parseFloat(multiplied1);
+                                                            }else{
+                                                              nums.pop(nums[p])
+                                                            }
+                                  }else{
+                                    p = nums.length - 1;
+                                    multiplied1 = (parseFloat(multiplied1)) * (parseFloat(nums[p]));
+                                    document.getElementById("result").innerHTML= "=" + parseFloat(multiplied1);
+                                  }
+                                    }
+
+              function divide1(){
+                    for (var i = 0, sum = 0; i < nums.length; sum += parseFloat(nums[i++])){}
+
+                    nums.push(document.getElementById("numbers").value);
+                    p = nums.length - 1;
+                    if (isNaN(parseFloat(nums[p])) == false){
+                      var multiplied1 = (parseFloat(sum)) / (parseFloat(nums[p]));
+                      clear1();
+                      document.getElementById("result").innerHTML= "=" + parseFloat(multiplied1);
+                                                            }else{
+                                                              nums.pop(nums[p])
+                                                            }
+                                 }
+
+
+
+
+
+          </script>
+
+        </body>
+        </html>
