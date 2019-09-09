@@ -79,6 +79,12 @@
                     document.getElementById("result").innerHTML=sum;
                         }
 
+              function resetarrays(){
+                nums.splice(0,nums.length);
+                displaynums.splice(0,displaynums.length);
+                document.getElementById("numdisplay").innerHTML=displaynums;
+              }
+
               function multiply1(){
                 if (nums.length !== 0){
                     for (var i = 0, sum = 0; i < nums.length; sum += parseFloat(nums[i++])){}
@@ -87,15 +93,16 @@
                     p = nums.length - 1;
                     if (isNaN(parseFloat(nums[p])) == false){
                       var multiplied1 = (parseFloat(sum)) * (parseFloat(nums[p]));
-                      clear1();
+                      resetarrays();
+                      nums.push(multiplied1);
+                      displaynums.push(multiplied1);
                       document.getElementById("result").innerHTML= "=" + parseFloat(multiplied1);
                                                             }else{
                                                               nums.pop(nums[p])
                                                             }
                                   }else{
-                                    p = nums.length - 1;
-                                    multiplied1 = (parseFloat(multiplied1)) * (parseFloat(nums[p]));
-                                    document.getElementById("result").innerHTML= "=" + parseFloat(multiplied1);
+                                    resetarrays();
+                                    document.getElementById("result").innerHTML= "=0";
                                   }
                                     }
 
