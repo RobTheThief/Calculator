@@ -91,7 +91,7 @@
                   for (var i = 0, sum = 0; i < nums.length; sum += parseFloat(nums[i++])){}
                   document.getElementById("result").innerHTML="= " + parseFloat(sum);
                   if (isNaN(sum)){     //checks if answer in NaN and runs clear1() if true
-                    clear1();
+                    resetarrays();
                   }
                 }
                 }
@@ -110,31 +110,34 @@
                 document.getElementById("numdisplay").innerHTML=displaynums;
               }
 
+              function multprep(){
+                for (var i = 0, sum = 0; i < nums.length; sum += parseFloat(nums[i++])){} //sum any numbers before multiplication
+                multiplier1 = sum; //sum didnt seem to work globally, need to investiagte more
+                nums.splice(0,nums.length); //empty the array
+                nums.push(multiplier1); //place the sum of the input before the multiplier nto the array
+              }
+
               function multiply1(){
+              document.getElementById("result").innerHTML= ""; //removes previous result
               multclick++; //add one to click counter
               if (multclick > 1){  //if multiplication button was clicked previously
                 multclick = 1; //reseting to one for more than 1 clicks
-                multipstrng = 1; // seting to one for consecutive multiplications
-                for (var i = 0, sum = 0; i < nums.length; sum += parseFloat(nums[i++])){}
-                multiplier1 = sum;
-                nums.splice(0,nums.length);
-                nums.push(multiplier1);
+                multipstrng = 1; // setting to one for 2 or more consecutive multiplications
+                multprep();
                 submit1();
               } else {
-                if (nums.length !== 0){ //if there have been no other numbers inputted
-                    for (var i = 0, sum = 0; i < nums.length; sum += parseFloat(nums[i++])){} //sum any numbers before multiplication
-                    multiplier1 = sum; //sum didnt seem to work globally, need to investiagte more
-                    nums.splice(0,nums.length); //empty the array
-                    nums.push(multiplier1); //place the sum of the input before the multiplier nto the array
+                if (nums.length !== 0){ //if there have been other numbers inputted
+                    multprep();
                     displaynums.splice(0,displaynums.length); // empty the display array
 
-                    displaynums.push(sum,"*" + document.getElementById("numbers").value); // push the sum * current input to display array
+                    displaynums.push(multiplier1,"*" + document.getElementById("numbers").value); // push the sum(multiplier) * current input to display array
                     document.getElementById("numdisplay").innerHTML=displaynums.join(""); // display display array
 
-                                      }else{
+                                      }else{ // only one number inputted
                                     nums.push(document.getElementById("numbers").value);
                                     displaynums.push(document.getElementById("numbers").value + "*");
                                     document.getElementById("numdisplay").innerHTML=displaynums.join("");
+                                    //!!!!!!if our next step after this is to sum then we do not multiply!!!!!!
                                   }
                                 }
                                 }
