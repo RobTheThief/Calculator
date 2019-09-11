@@ -14,7 +14,7 @@
                 <input type="number" name="numbers" id="numbers" placeholder="enter real number"> <br>
 
                 <button type="button" class="btn btn-info" onclick="add()">SUM</button><br><br>
-                <button type="button" class="btn btn-info" onclick="submit1()">=</button><br><br>
+                <button type="button" class="btn btn-info" onclick="submit1()">Robulate!</button><br><br>
                 <button type="button" class="btn btn-info" onclick="clear1()">C</button><br><br>
                 <button type="button" class="btn btn-info" onclick="multiply1()">*</button><br><br>
                 <button type="button" class="btn btn-info" onclick="divide1()">/</button><br><br>
@@ -42,7 +42,9 @@
               p = 0;
               multclick = 0;
               multipstrng = 0;
-              //var multipied = 0
+              divclick = 0;
+              multipdivstrng = 0;
+
               function add(){
                   multclick = 0;        // resets counter for more than 1 consecutive multiplications
                   multipstrng = 1;
@@ -69,14 +71,27 @@
 
               function submit1(){
 
-              if (multclick == 1){   //checkes if multiplication button clicked last
+              if (multclick == 1 || divclick == 1){   //checkes if multiplication button clicked last
                 p = nums.length - 1;
-                if (isNaN(parseFloat(nums[p])) == false){ //if the last num array isNaN then multiply
+                if (isNaN(parseFloat(nums[p])) == false){ //if the last num array is not isNaN then multiply/divide
                       multiplied1 = 0;
-                      multiplied1 = (parseFloat(document.getElementById("numbers").value)) * (parseFloat(nums[p]));
+
+                      if (multclick == 1){
+                        multiplied1 = (parseFloat(document.getElementById("numbers").value)) * (parseFloat(nums[p]));
+                                          }
+                      if (divclick == 1){
+                        multiplied1 = (parseFloat(nums[p]) / (parseFloat(document.getElementById("numbers").value)));
+                      }
                       resetarrays();
+
                       nums.push(multiplied1);
-                      displaynums.push(multiplier1,"*" + document.getElementById("numbers").value);
+                      if (multclick == 1){
+                        displaynums.push(multiplier1,"*" + document.getElementById("numbers").value);
+                                          }
+                      if (divclick == 1){
+                        displaynums.push(multiplier1,"/" + document.getElementById("numbers").value);
+                                          }
+
                       document.getElementById("numdisplay").innerHTML=displaynums.join("");
                       document.getElementById("result").innerHTML= "=" + parseFloat(multiplied1);
                       if (multipstrng == 0){
@@ -110,7 +125,7 @@
                 document.getElementById("numdisplay").innerHTML=displaynums;
               }
 
-              function multprep(){
+              function multprep(){  //sums input in preparation for mulpitpliation or division
                 for (var i = 0, sum = 0; i < nums.length; sum += parseFloat(nums[i++])){} //sum any numbers before multiplication
                 multiplier1 = sum; //sum didnt seem to work globally, need to investiagte more
                 nums.splice(0,nums.length); //empty the array
@@ -120,6 +135,7 @@
               function multiply1(){
               document.getElementById("result").innerHTML= ""; //removes previous result
               multclick++; //add one to click counter
+              divclick = 0;
               if (multclick > 1){  //if multiplication button was clicked previously
                 multclick = 1; //reseting to one for more than 1 clicks
                 multipstrng = 1; // setting to one for 2 or more consecutive multiplications
@@ -143,19 +159,29 @@
                                 }
 
               function divide1(){
-                    for (var i = 0, sum = 0; i < nums.length; sum += parseFloat(nums[i++])){}
 
-                    nums.push(document.getElementById("numbers").value);
-                    p = nums.length - 1;
-                    if (isNaN(parseFloat(nums[p])) == false){
-                      var multiplied1 = (parseFloat(sum)) / (parseFloat(nums[p]));
-                      resetarrays();
-                      nums.push(multiplied1);
-                      displaynums.push(multiplied1);
-                      document.getElementById("result").innerHTML= "=" + parseFloat(multiplied1);
-                                                            }else{
-                                                              nums.pop(nums[p])
-                                                            }
+                divclick++;
+                multclick = 0;
+                if (divclick > 1){  //if division button was clicked previously
+                  divclick = 1; //reseting to one for more than 1 clicks
+                  multipstrng = 1; // setting to one for 2 or more consecutive division
+                  multprep();
+                  submit1();
+                } else {
+                  if (nums.length !== 0){ //if there have been other numbers inputted
+                      multprep();
+                      displaynums.splice(0,displaynums.length); // empty the display array
+
+                      displaynums.push(multiplier1,"/" + document.getElementById("numbers").value); // push the sum(multiplier) / current input to display array
+                      document.getElementById("numdisplay").innerHTML=displaynums.join(""); // display display array
+
+                                        }else{ // only one number inputted
+                                      nums.push(document.getElementById("numbers").value);
+                                      displaynums.push(document.getElementById("numbers").value + "*");
+                                      document.getElementById("numdisplay").innerHTML=displaynums.join("");
+                                      //!!!!!!if our next step after this is to sum then we do not divide!!!!!!
+                                    }
+                                  }
                                  }
 
 
