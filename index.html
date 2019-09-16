@@ -18,6 +18,7 @@
                 <button type="button" class="btn btn-info" onclick="clear1()">C</button><br><br>
                 <button type="button" class="btn btn-info" onclick="multiply1()">*</button><br><br>
                 <button type="button" class="btn btn-info" onclick="divide1()">/</button><br><br>
+                <button type="button" class="btn btn-info" onclick="num1()">1</button><br><br>
 
                 <div class="screen" id="numdisplay"></div>
                 <div class="screen" id="result"></div>
@@ -35,6 +36,9 @@
         </footer>
           <script type="text/javascript">
 
+          /******************NEED TO REMOVE "SUM" BUTTON AND ADD "+" and "-" buttons*********************/
+
+
               var nums = [];
               var displaynums = [];
               sum = 0;
@@ -45,6 +49,11 @@
               divclick = 0;
               multipdivstrng = 0;
 
+              function num1(){
+              nums.push(1);
+              displaynums.push(1)
+              document.getElementById("numdisplay").innerHTML=displaynums.join(" ");
+              }
 
               function add(){
                   multclick = 0;        // resets counter for more than 1 consecutive multiplications
@@ -52,14 +61,14 @@
                   nums.push(document.getElementById("numbers").value);  //pushs numbers to the nums array to be added
                   var p = nums.length - 1;
 
-          if (isNaN(parseFloat(document.getElementById("numbers").value))){nums.pop(nums[p])}  //need to remove last array entry if NaN
-                                        else{
-
+          if (isNaN(parseFloat(document.getElementById("numbers").value))){ // checks if input is a number
+              nums.pop(nums[p]) // pops input if isNaN
+              return;
+                                                                  }
               if (nums.length == 1 && nums[0] >= 0){          //checks if the first item is not negative
                 displaynums.push(document.getElementById("numbers").value);
                 document.getElementById("numdisplay").innerHTML=displaynums.join(" ");
-                                                    } else{
-                    if (parseFloat(nums[p]) < 0){  //check if number is positive or not to affix "+" symbol
+                    } else if (parseFloat(nums[p]) < 0){ //check if number is positive or not to affix "+" symbol
                       displaynums.push(document.getElementById("numbers").value);
                       document.getElementById("numdisplay").innerHTML=displaynums.join("");
                                                     } else{
@@ -67,17 +76,20 @@
                         document.getElementById("numdisplay").innerHTML=displaynums.join("");
                                                           }
                                                     }
-                                            }
-                              }
+
 
               function submit1(){
+              if (isNaN(parseFloat(document.getElementById("numbers").value))){ // checks if input is a number
+                nums.pop(nums[p]); // pops input if isNaN
+                return; //exit function
+                                }
               if (multclick == 1 || divclick == 1){   //checkes if multiplication button clicked last
                 p = nums.length - 1;
                 if (isNaN(parseFloat(nums[p])) == false){ //if the last num array is not isNaN then multiply/divide
                       multiplied1 = 0;
 
                       if (multclick == 1){
-                        multiplied1 = (parseFloat(document.getElementById("numbers").value)) * (parseFloat(nums[p]));
+                        multiplied1 = (parseFloat(document.getElementById("numbers").value)) * (parseFloat(nums[p])); /****if input changes between pressing multiply button and robulate then display and answer changes***/
                                           }
                       if (divclick == 1){
                         multiplied1 = (parseFloat(nums[p]) / (parseFloat(document.getElementById("numbers").value)));
@@ -114,9 +126,15 @@
               function clear1(){
                     nums.splice(0,nums.length);
                     displaynums.splice(0,displaynums.length);
-                    sum = "";
                     document.getElementById("numdisplay").innerHTML=displaynums;
-                    document.getElementById("result").innerHTML=sum;
+                    document.getElementById("result").innerHTML="";
+                    sum = 0;
+                    multiplier1 = 0;
+                    p = 0;
+                    multclick = 0;
+                    multipstrng = 0;
+                    divclick = 0;
+                    multipdivstrng = 0;
                         }
 
               function resetarrays(){
@@ -133,6 +151,10 @@
               }
 
               function multiply1(){
+              if (isNaN(parseFloat(document.getElementById("numbers").value))){ // checks if input is a number
+                nums.pop(nums[p]); // pops input if isNaN
+                return; //exit function
+                      }
               document.getElementById("result").innerHTML= ""; //removes previous result
               multclick++; //add one to click counter
               divclick = 0;
@@ -162,7 +184,10 @@
                                 }
 
               function divide1(){
-
+              if (isNaN(parseFloat(document.getElementById("numbers").value))){ // checks if input is a number
+                nums.pop(nums[p]); // pops input if isNaN
+                return; //exit function
+                        }
                 document.getElementById("result").innerHTML= ""; //removes previous result
                 divclick++;
                 multclick = 0;
