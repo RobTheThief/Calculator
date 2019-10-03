@@ -9,20 +9,23 @@
                     <h3>more than a calculator!</h1>
                 </header>
 
-         <form>
+         <form class="mainpanel">
                 <label>INPUT</label>
-                <input type="number" name="numbers" id="numbers" placeholder="enter real number"> <br>
+                <input type="text" name="numbers" id="numbers" placeholder="enter real number"> <br>
 
-                <button type="button" class="btn btn-info" onclick="add()">SUM</button><br><br>
-                <button type="button" class="btn btn-info" onclick="submit1()">Robulate!</button><br><br>
-                <button type="button" class="btn btn-info" onclick="clear1()">C</button><br><br>
-                <button type="button" class="btn btn-info" onclick="multiply1()">*</button><br><br>
-                <button type="button" class="btn btn-info" onclick="divide1()">/</button><br><br>
-                <button type="button" class="btn btn-info" onclick="num1()">1</button><br><br>
+                <button type="button" id="buttons1" class="btn btn-info" onclick="add()">SUM</button>
+                <button type="button" id="buttons2" class="btn btn-info" onclick="submit1()">Robulate!</button>
+                <button type="button" id="buttons3" class="btn btn-info" onclick="clear1()">C</button><br><br>
+                <button type="button" id="buttons4" class="btn btn-info" onclick="multiply1()">*</button><br><br>
+                <button type="button" id="buttons5" class="btn btn-info" onclick="divide1()">/</button><br><br>
+                <button type="button" id="buttons6" class="btn btn-info" onclick="num1()">1</button><br><br>
+                <button type="button" id="buttons7" class="btn btn-info" onclick="minusnum()">-</button><br><br>
+                <button type="button" id="buttons8" class="btn btn-info" onclick="plusnum()">+</button><br><br>  <!-- does nothing! HA HA -->
+
 
                 <div class="screen" id="numdisplay"></div>
                 <div class="screen" id="result"></div>
-                <div class="screen" id="test"></div> <!--display output testing
+                <div class="screen" id="test"></div> <!--display output testing -->
 
 
             </form>
@@ -34,36 +37,151 @@
         <footer>
 
         </footer>
+
+
+
+        <style>
+            .mainpanel {
+                width: 50%;
+            }
+
+            #buttons1,
+            #buttons2,
+            #buttons3,
+            #buttons4,
+            #buttons5,
+            #buttons6,
+            #buttons7,
+            #buttons8 {
+                float: left;
+                width: 50%;
+            background:#dbdbdb;
+            }
+            </style>
+
+
+
           <script type="text/javascript">
 
           /******************NEED TO REMOVE "SUM" BUTTON AND ADD "+" and "-" buttons*********************/
+                        //START WITH CHANGING DISPLAY ARRAY INTO THE INPUT BOX FOR LOOP
+                              //REMOVE DISPLAY ARRAY CODE AND SUBSTITUTE MULTIPLY AND DIVIDE FUNCTION LINES TO SEND SUMMED INFO TO INPUT
+"use strict";
 
-
+              var temp = [];
               var nums = [];
               var displaynums = [];
-              sum = 0;
-              multiplier1 = 0;
-              p = 0;
-              multclick = 0;
-              multipstrng = 0;
-              divclick = 0;
-              multipdivstrng = 0;
-
+              var sumcounter = 0;
+              var sum = 0;
+              var multiplier1 = 0;
+              var p = 0;
+              var multclick = 0;
+              var multipstrng = 0;
+              var divclick = 0;
+              var multipdivstrng = 0;
+              var minus = 0;
+              var a = 0;
+              var str = 0;
+              var farts = 1;
+              var result = 0;
+// NUMBER PAD
               function num1(){
-              nums.push(1);
-              displaynums.push(1)
-              document.getElementById("numdisplay").innerHTML=displaynums.join(" ");
+              document.getElementById("numbers").value += 1; //adds "1" to the end of the input
+               }
+
+              function minusnum(){
+              document.getElementById("numbers").value += "-";
               }
 
-              function add(){
+              var obj = {
+                sumup: function(){
+                var a = temp.join(""); //a = temp ayyay as string
+                nums.push(a);//push this as one item in array
+                temp.splice(0,temp.length);// empties temp array
+                for (var i = 0, sum = 0; i < nums.length; sum += parseFloat(nums[i++])){}
+                document.getElementById("result").innerHTML="= " + parseFloat(sum);
+                _result = sum;
+                document.getElementById("test").innerHTML=nums;
+                document.getElementById("numdisplay").innerHTML=_result;
+                window.sumcounter = 0;
+                  }
+                }
+
+                // consider this to detect multiplications
+
+                // const thisisit = ["lookhere", "ohnice"];
+                // const itis = thisisit[1];
+                // console.log(itis.includes("i")); //returns "true"
+
+                //consider this for summing numbers
+                /*const numbers = [1, 2, 4, 10];
+
+                const summedNums = numbers.reduce((accumulator, currentValue) => {
+                return accumulator + currentValue
+                })*/
+
+              function plusnum(){
+              //document.getElementById("numbers").value += "+";
+              displaynums.splice(0,displaynums.length); //empties display array
+              nums.splice(0,nums.length);//empties number array
+              temp.splice(0,temp.length);
+              str = document.getElementById("numbers").value; //input numbers = str
+              displaynums = str.split("");//enters contents of str into display array
+              window.sumcounter = 0;
+              for (let b = 0; b < displaynums.length; b++){ //loops through the display array
+                  if (displaynums[b] !== isNaN && b == 0){
+                        window.sumcounter++;
+                      }
+
+                      if (displaynums[b] == "-" || displaynums[b] == "+"){
+                        window.sumcounter++;
+                      }
+
+                      if (window.sumcounter == 2){
+                        var a = temp.join(""); //a = temp ayyay as string
+                        nums.push(a);//push this as one item in array
+                        temp.splice(0,temp.length);// empties temp array
+                        window.sumcounter = 1;
+                      }
+
+                      if (displaynums[b] !== isNaN || displaynums[b] == "-" || displaynums[b] == "+"){
+                        temp.push(displaynums[b]);
+                      }
+//use .findIndex() method to id multiplication. will prlly ignore second multiplication and remove from input while summing the other numbers
+                     if ( displaynums[b] == "*"){
+                        obj.sumup();
+                        document.getElementById("numbers").value= result + "*";
+                        multclick++;
+                      }
+
+                     if (displaynums[displaynums.length - 1] == displaynums[b] && multclick == 1){
+                      //  temp.push(displaynums[b]);
+                        multclick--;
+                        a = temp.join(""); //a = temp ayyay as string
+                        nums.splice(0,nums.length);
+                        nums.push(a);//push this as one item in array
+                        temp.splice(0,temp.length);// empties temp array
+                        document.getElementById("numbers").value += a;
+                        document.getElementById("result").innerHTML="= " + (_result * a);
+                        document.getElementById("test").innerHTML=nums;
+                        document.getElementById("numdisplay").innerHTML=displaynums;
+                      }else if(displaynums[displaynums.length - 1] == displaynums[b]){
+                           obj.sumup();
+
+                         }
+                       }
+                     }
+//NUMBER PAD^^
+
+/*              function add(){
                   multclick = 0;        // resets counter for more than 1 consecutive multiplications
                   multipstrng = 1;
                   nums.push(document.getElementById("numbers").value);  //pushs numbers to the nums array to be added
                   var p = nums.length - 1;
 
-          if (isNaN(parseFloat(document.getElementById("numbers").value))){ // checks if input is a number
-              nums.pop(nums[p]) // pops input if isNaN
-              return;
+              if (isNaN(parseFloat(document.getElementById("numbers").value))){ // checks if input is a number
+                nums.pop(nums[p]) // pops input if isNaN
+                return;
                                                                   }
               if (nums.length == 1 && nums[0] >= 0){          //checks if the first item is not negative
                 displaynums.push(document.getElementById("numbers").value);
@@ -76,9 +194,9 @@
                         document.getElementById("numdisplay").innerHTML=displaynums.join("");
                                                           }
                                                     }
+*/
 
-
-              function submit1(){
+        /*      function submit1(){
               if (isNaN(parseFloat(document.getElementById("numbers").value))){ // checks if input is a number
                 nums.pop(nums[p]); // pops input if isNaN
                 return; //exit function
@@ -89,7 +207,7 @@
                       multiplied1 = 0;
 
                       if (multclick == 1){
-                        multiplied1 = (parseFloat(document.getElementById("numbers").value)) * (parseFloat(nums[p])); /****if input changes between pressing multiply button and robulate then display and answer changes***/
+                        multiplied1 = (parseFloat(document.getElementById("numbers").value)) * (parseFloat(nums[p])); //if input changes between pressing multiply button and robulate then display and answer changes
                                           }
                       if (divclick == 1){
                         multiplied1 = (parseFloat(nums[p]) / (parseFloat(document.getElementById("numbers").value)));
@@ -121,13 +239,14 @@
                     resetarrays();
                   }
                 }
-                }
+              }*/
 
-              function clear1(){
+          /*    function clear1(){
                     nums.splice(0,nums.length);
                     displaynums.splice(0,displaynums.length);
                     document.getElementById("numdisplay").innerHTML=displaynums;
                     document.getElementById("result").innerHTML="";
+                    document.getElementById("numbers").value="";
                     sum = 0;
                     multiplier1 = 0;
                     p = 0;
@@ -213,7 +332,7 @@
                                   }
                                  }
 
-
+*/
 
 
 
