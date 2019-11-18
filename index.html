@@ -4,7 +4,7 @@
 
             <div class="container-fluid">
                 <header>
-                  <h3>It's a</h1>
+                  <h3>It's a</h3>
                     <h1>ROBULATOR</h1>
                     <h3>more than a calculator!</h1>
                 </header>
@@ -94,8 +94,8 @@
               }
 
               var obj = {
-                sumup: function(){
-                var a = temp.join(""); //a = temp ayyay as string
+                sumup(){
+                var a = temp.join(""); //a = temp array as string
                 nums.push(a);//push this as one item in array
                 temp.splice(0,temp.length);// empties temp array
                 for (var i = 0, sum = 0; i < nums.length; sum += parseFloat(nums[i++])){}
@@ -103,7 +103,7 @@
                 _result = sum;
                 document.getElementById("test").innerHTML=nums;
                 document.getElementById("numdisplay").innerHTML=_result;
-                window.sumcounter = 0;
+                window.sumcounter = 1;
                   }
                 }
 
@@ -124,7 +124,7 @@
               //document.getElementById("numbers").value += "+";
               displaynums.splice(0,displaynums.length); //empties display array
               nums.splice(0,nums.length);//empties number array
-              temp.splice(0,temp.length);
+              temp.splice(0,temp.length);//empties temp array
               str = document.getElementById("numbers").value; //input numbers = str
               displaynums = str.split("");//enters contents of str into display array
               window.sumcounter = 0;
@@ -138,7 +138,7 @@
                       }
 
                       if (window.sumcounter == 2){
-                        var a = temp.join(""); //a = temp ayyay as string
+                        var a = temp.join(""); //a = temp array as string
                         nums.push(a);//push this as one item in array
                         temp.splice(0,temp.length);// empties temp array
                         window.sumcounter = 1;
@@ -150,6 +150,20 @@
 //use .findIndex() method to id multiplication. will prlly ignore second multiplication and remove from input while summing the other numbers
                      if ( displaynums[b] == "*"){
                         obj.sumup();
+
+                         sumcounter = 1;
+                         sum = 0;
+                         multiplier1 = 0;
+                         p = 0;
+                         multclick = 0;
+                         multipstrng = 0;
+                         divclick = 0;
+                         multipdivstrng = 0;
+                         minus = 0;
+                         a = 0;
+                         str = 0;
+                         farts = 1;
+                         result = 0;
                         document.getElementById("numbers").value= result + "*";
                         multclick++;
                       }
@@ -167,6 +181,20 @@
                         document.getElementById("numdisplay").innerHTML=displaynums;
                       }else if(displaynums[displaynums.length - 1] == displaynums[b]){
                            obj.sumup();
+
+                            sumcounter = 0;
+                            sum = 0;
+                            multiplier1 = 0;
+                            p = 0;
+                            multclick = 0;
+                            multipstrng = 0;
+                            divclick = 0;
+                            multipdivstrng = 0;
+                            minus = 0;
+                            a = 0;
+                            str = 0;
+                            farts = 1;
+                            result = 0;
 
                          }
                        }

@@ -1,0 +1,191 @@
+<html>
+   <body>
+
+       <div class="container-fluid">
+           <header>
+             <h3>It's a</h3>
+               <h1>ROBULATOR</h1>
+               <h3>more than a calculator!</h3>
+           </header>
+
+    <form class="mainpanel">
+           <label>INPUT</label>
+           <input type="text" name="numbers" id="numbers" placeholder="enter real number"> <br>
+
+           <button type="button" id="buttons1" class="btn btn-info" onclick="add()">SUM</button>
+           <button type="button" id="buttons2" class="btn btn-info" onclick="submit1()">Robulate!</button>
+           <button type="button" id="buttons3" class="btn btn-info" onclick="clear1()">C</button><br><br>
+           <button type="button" id="buttons4" class="btn btn-info" onclick="multiply1()">*</button><br><br>
+           <button type="button" id="buttons5" class="btn btn-info" onclick="divide1()">/</button><br><br>
+           <button type="button" id="buttons6" class="btn btn-info" onclick="num1()">1</button><br><br>
+           <button type="button" id="buttons7" class="btn btn-info" onclick="minusnum()">-</button><br><br>
+           <button type="button" id="buttons8" class="btn btn-info" onclick="plusnum()">+</button><br><br>  <!-- does nothing! HA HA -->
+
+
+           <div class="screen" id="numdisplay"></div>
+           <div class="screen" id="result"></div>
+           <div class="screen" id="test"></div> <!--display output testing -->
+
+
+       </form>
+
+       </div> <!-- End Container-->
+
+
+
+   <footer>
+
+   </footer>
+
+
+
+   <style>
+       .mainpanel {
+           width: 50%;
+       }
+
+       #buttons1,
+       #buttons2,
+       #buttons3,
+       #buttons4,
+       #buttons5,
+       #buttons6,
+       #buttons7,
+       #buttons8 {
+           float: left;
+           width: 50%;
+       background:#dbdbdb;
+       }
+       </style>
+
+
+
+<script type="text/javascript">
+  "use strict";
+
+               var temp = [];
+               var nums = [];
+               var displaynums = [];
+               var sumindicator = 0;
+               var sumcounter = 0;
+               var sum = 0;
+               var multiplier1 = 0;
+               var p = 0;
+               var multclick = 0;
+               var multipstrng = 0;
+               var divclick = 0;
+               var multipdivstrng = 0;
+               var minus = 0;
+               var a = 0;
+               var str = 0;
+               var farts = 1;
+               var _result = 0;
+ // NUMBER PAD
+               function num1(){
+               document.getElementById("numbers").value += 1; //adds "1" to the end of the input
+                }
+
+               function minusnum(){
+               document.getElementById("numbers").value += "-";
+               }
+
+               var obj = {
+                 sumup(){
+                 a = temp.join(""); //a = temp array as string
+                 nums.push(a);//push this as one item in array
+                 temp.splice(0,temp.length);// empties temp array
+                 for (var i = 0, sum = 0; i < nums.length; sum += parseFloat(nums[i++])){}
+                 document.getElementById("result").innerHTML="= " + parseFloat(sum);
+                 _result = sum;
+                 document.getElementById("test").innerHTML=nums;
+                 document.getElementById("numdisplay").innerHTML=_result;
+                 window.sumindicator = 1;
+                   }
+                 }
+
+                       // consider this to detect multiplications
+
+                       // const thisisit = ["lookhere", "ohnice"];
+                       // const itis = thisisit[1];
+                       // console.log(itis.includes("i")); //returns "true"
+
+                       //consider this for summing numbers
+                       /*const numbers = [1, 2, 4, 10];
+
+                       const summedNums = numbers.reduce((accumulator, currentValue) => {
+                       return accumulator + currentValue
+                       })*/
+
+               function submit1(){
+               displaynums.splice(0,displaynums.length); //empties display array
+               nums.splice(0,nums.length);//empties number array
+               temp.splice(0,temp.length);//empties temp array
+               str = document.getElementById("numbers").value; //input numbers = str
+               displaynums = str.split("");//enters contents of str into display array
+               window.sumindicator = 0;
+               for (let b = 0; b < displaynums.length; b++){ //loops through the display array
+                  if (displaynums[b] !== isNaN && b == 0){ //checks if the first char is + or - t avoid this being discounted. This is why sumindicator is set to 0 initially
+                           window.sumindicator++;
+                         }
+
+                         if (displaynums[b] == "-" || displaynums[b] == "+"){
+                           window.sumindicator++;
+                           sumcounter++;
+                         }
+
+                         if ( displaynums[b] == "*" && sumcounter > 0){
+                           var a = temp.join(""); //a = temp array as string
+                           nums.push(a);//push a as one item in array
+                           temp.splice(0,temp.length);// empties temp array
+                           nums.push(displaynums[b]);
+                           multclick = 1;
+                          }
+
+                         if (window.sumindicator == 2){
+                           var a = temp.join(""); //a = temp array as string
+                           nums.push(a);//push a as one item in array
+                           temp.splice(0,temp.length);// empties temp array
+                           window.sumindicator = 1;
+                         }
+
+                         if (displaynums[b] !== isNaN || displaynums[b] == "-" || displaynums[b] == "+" && displaynums[b] !== "*"){
+                           temp.push(displaynums[b]);
+
+                         }
+
+                         if ( displaynums[b] == "*"){
+                           temp.pop(b);
+                          }
+
+                       if (displaynums.length - 1 == b && multclick !== 1){
+                          nums.push("*");
+                          a = temp.join("");
+                          nums.splice(nums.length - 1, 0, a);
+                            }
+                          }
+
+                        a = temp.join(""); //a = temp array as string
+
+                      if (multclick == 1){
+                        nums.push(a);//push this as one item in array
+                        temp.splice(0,temp.length);// empties temp array
+                        for (var i = 0, sum = 0; i < nums.indexOf("*"); sum += parseFloat(nums[i++])){}
+                        document.getElementById("numbers").value=+ parseFloat(sum)+"*"+parseFloat(nums[nums.length - 1]);
+                        document.getElementById("result").innerHTML= parseFloat(sum) * parseFloat(nums[nums.length - 1]);
+                        multclick = 0;
+                      }else{  nums.push(a);//push this as one item in array
+                              temp.splice(0,temp.length);// empties temp array
+                              for (var i = 0, sum = 0; i < nums.indexOf("*"); sum += parseFloat(nums[i++])){}
+                              document.getElementById("result").innerHTML= parseFloat(sum);
+                              multclick = 0;
+                            }
+                      multclick = 0;
+                      sumcounter = 0;
+                      }
+
+
+
+           </script>
+
+         </body>
+         </html>
