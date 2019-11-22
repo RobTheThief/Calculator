@@ -1,370 +1,236 @@
+<html>
+   <body>
 
-     <html>
-        <body>
+       <div class="container-fluid">
+           <header>
+             <h3>It's a</h3>
+               <h1>ROBULATOR</h1>
+               <h3>more than a calculator!</h3>
+           </header>
 
-            <div class="container-fluid">
-                <header>
-                  <h3>It's a</h3>
-                    <h1>ROBULATOR</h1>
-                    <h3>more than a calculator!</h1>
-                </header>
+    <form class="mainpanel">
+           <label>INPUT</label>
+           <input type="text" name="input" id="input" placeholder="enter real number"> <br>
 
-         <form class="mainpanel">
-                <label>INPUT</label>
-                <input type="text" name="numbers" id="numbers" placeholder="enter real number"> <br>
-
-                <button type="button" id="buttons1" class="btn btn-info" onclick="add()">SUM</button>
-                <button type="button" id="buttons2" class="btn btn-info" onclick="submit1()">Robulate!</button>
-                <button type="button" id="buttons3" class="btn btn-info" onclick="clear1()">C</button><br><br>
-                <button type="button" id="buttons4" class="btn btn-info" onclick="multiply1()">*</button><br><br>
-                <button type="button" id="buttons5" class="btn btn-info" onclick="divide1()">/</button><br><br>
-                <button type="button" id="buttons6" class="btn btn-info" onclick="num1()">1</button><br><br>
-                <button type="button" id="buttons7" class="btn btn-info" onclick="minusnum()">-</button><br><br>
-                <button type="button" id="buttons8" class="btn btn-info" onclick="plusnum()">+</button><br><br>  <!-- does nothing! HA HA -->
-
-
-                <div class="screen" id="numdisplay"></div>
-                <div class="screen" id="result"></div>
-                <div class="screen" id="test"></div> <!--display output testing -->
+           <button type="button" id="buttons1" class="btn btn-info" onclick="add()">SUM</button>
+           <button type="button" id="buttons2" class="btn btn-info" onclick="submit1()">Robulate!</button>
+           <button type="button" id="buttons3" class="btn btn-info" onclick="clear1()">C</button><br><br>
+           <button type="button" id="buttons4" class="btn btn-info" onclick="multiply1()">*</button><br><br>
+           <button type="button" id="buttons5" class="btn btn-info" onclick="divide1()">/</button><br><br>
+           <button type="button" id="buttons6" class="btn btn-info" onclick="num1()">1</button><br><br>
+           <button type="button" id="buttons7" class="btn btn-info" onclick="minusnum()">-</button><br><br>
+           <button type="button" id="buttons8" class="btn btn-info" onclick="plusnum()">+</button><br><br>  <!-- does nothing! HA HA -->
 
 
-            </form>
+           <div class="screen" id="numdisplay"></div>
+           <div class="screen" id="result"></div>
+           <div class="screen" id="test"></div> <!--display output testing -->
 
-            </div> <!-- End Container-->
 
+       </form>
 
-
-        <footer>
-
-        </footer>
+       </div> <!-- End Container-->
 
 
 
-        <style>
-            .mainpanel {
-                width: 50%;
-            }
+   <footer>
 
-            #buttons1,
-            #buttons2,
-            #buttons3,
-            #buttons4,
-            #buttons5,
-            #buttons6,
-            #buttons7,
-            #buttons8 {
-                float: left;
-                width: 50%;
-            background:#dbdbdb;
-            }
-            </style>
+   </footer>
 
 
 
-          <script type="text/javascript">
+   <style>
+       .mainpanel {
+           width: 50%;
+       }
 
-          /******************NEED TO REMOVE "SUM" BUTTON AND ADD "+" and "-" buttons*********************/
-                        //START WITH CHANGING DISPLAY ARRAY INTO THE INPUT BOX FOR LOOP
-                              //REMOVE DISPLAY ARRAY CODE AND SUBSTITUTE MULTIPLY AND DIVIDE FUNCTION LINES TO SEND SUMMED INFO TO INPUT
-"use strict";
+       #buttons1,
+       #buttons2,
+       #buttons3,
+       #buttons4,
+       #buttons5,
+       #buttons6,
+       #buttons7,
+       #buttons8 {
+           float: left;
+           width: 50%;
+       background:#dbdbdb;
+       }
+       </style>
 
-              var temp = [];
-              var nums = [];
-              var displaynums = [];
-              var sumcounter = 0;
-              var sum = 0;
-              var multiplier1 = 0;
-              var p = 0;
-              var multclick = 0;
-              var multipstrng = 0;
-              var divclick = 0;
-              var multipdivstrng = 0;
-              var minus = 0;
-              var a = 0;
-              var str = 0;
-              var farts = 1;
-              var result = 0;
-// NUMBER PAD
-              function num1(){
-              document.getElementById("numbers").value += 1; //adds "1" to the end of the input
+
+
+<script type="text/javascript">
+  "use strict";
+
+               var temp = [];
+               var wrkNums = [];
+               var inputArray = [];
+               var sumIndicator = 0;
+               var sumcounter = 0;
+               var sum = 0;
+               var multiplier1 = 0;
+               var p = 0;
+               var multclick = 0;
+               var multipstrng = 0;
+               var divclick = 0;
+               var multipdivstrng = 0;
+               var minus = 0;
+               var a = 0;
+               var str = 0;
+               var farts = 1;
+               var result = 0;
+               var loop = 0;
+               var checker = 0;
+               var multRDivCount = 0;
+ // NUMBER PAD
+               function num1(){
+               document.getElementById("input").value += 1; //adds "1" to the end of the input
+
+                }
+
+               function minusnum(){
+               document.getElementById("input").value += "-";
                }
 
-              function minusnum(){
-              document.getElementById("numbers").value += "-";
-              }
+                       // consider this to detect multiplications
 
-              var obj = {
-                sumup(){
-                var a = temp.join(""); //a = temp array as string
-                nums.push(a);//push this as one item in array
-                temp.splice(0,temp.length);// empties temp array
-                for (var i = 0, sum = 0; i < nums.length; sum += parseFloat(nums[i++])){}
-                document.getElementById("result").innerHTML="= " + parseFloat(sum);
-                _result = sum;
-                document.getElementById("test").innerHTML=nums;
-                document.getElementById("numdisplay").innerHTML=_result;
-                window.sumcounter = 1;
-                  }
-                }
+                       // const thisisit = ["lookhere", "ohnice"];
+                       // const itis = thisisit[1];
+                       // console.log(itis.includes("i")); //returns "true"
 
-                // consider this to detect multiplications
+                       //consider this for summing numbers
+                       /*const numbers = [1, 2, 4, 10];
 
-                // const thisisit = ["lookhere", "ohnice"];
-                // const itis = thisisit[1];
-                // console.log(itis.includes("i")); //returns "true"
+                       const summednums = numbers.reduce((accumulator, currentValue) => {
+                       return accumulator + currentValue
+                       })*/
 
-                //consider this for summing numbers
-                /*const numbers = [1, 2, 4, 10];
-
-                const summedNums = numbers.reduce((accumulator, currentValue) => {
-                return accumulator + currentValue
-                })*/
-
-              function plusnum(){
-              //document.getElementById("numbers").value += "+";
-              displaynums.splice(0,displaynums.length); //empties display array
-              nums.splice(0,nums.length);//empties number array
+            function submit1(){
+              inputArray.splice(0,inputArray.length); //empties input array
+              wrkNums.splice(0,wrkNums.length);//empties working number array
               temp.splice(0,temp.length);//empties temp array
-              str = document.getElementById("numbers").value; //input numbers = str
-              displaynums = str.split("");//enters contents of str into display array
-              window.sumcounter = 0;
-              for (let b = 0; b < displaynums.length; b++){ //loops through the display array
-                  if (displaynums[b] !== isNaN && b == 0){
-                        window.sumcounter++;
-                      }
+              str = document.getElementById("input").value; //input numbers become string str
+              inputArray = str.split("");//enters contents of input str into input array
 
-                      if (displaynums[b] == "-" || displaynums[b] == "+"){
-                        window.sumcounter++;
-                      }
-
-                      if (window.sumcounter == 2){
-                        var a = temp.join(""); //a = temp array as string
-                        nums.push(a);//push this as one item in array
-                        temp.splice(0,temp.length);// empties temp array
-                        window.sumcounter = 1;
-                      }
-
-                      if (displaynums[b] !== isNaN || displaynums[b] == "-" || displaynums[b] == "+"){
-                        temp.push(displaynums[b]);
-                      }
-//use .findIndex() method to id multiplication. will prlly ignore second multiplication and remove from input while summing the other numbers
-                     if ( displaynums[b] == "*"){
-                        obj.sumup();
-
-                         sumcounter = 1;
-                         sum = 0;
-                         multiplier1 = 0;
-                         p = 0;
-                         multclick = 0;
-                         multipstrng = 0;
-                         divclick = 0;
-                         multipdivstrng = 0;
-                         minus = 0;
-                         a = 0;
-                         str = 0;
-                         farts = 1;
-                         result = 0;
-                        document.getElementById("numbers").value= result + "*";
-                        multclick++;
-                      }
-
-                     if (displaynums[displaynums.length - 1] == displaynums[b] && multclick == 1){
-                      //  temp.push(displaynums[b]);
-                        multclick--;
-                        a = temp.join(""); //a = temp ayyay as string
-                        nums.splice(0,nums.length);
-                        nums.push(a);//push this as one item in array
-                        temp.splice(0,temp.length);// empties temp array
-                        document.getElementById("numbers").value += a;
-                        document.getElementById("result").innerHTML="= " + (_result * a);
-                        document.getElementById("test").innerHTML=nums;
-                        document.getElementById("numdisplay").innerHTML=displaynums;
-                      }else if(displaynums[displaynums.length - 1] == displaynums[b]){
-                           obj.sumup();
-
-                            sumcounter = 0;
-                            sum = 0;
-                            multiplier1 = 0;
-                            p = 0;
-                            multclick = 0;
-                            multipstrng = 0;
-                            divclick = 0;
-                            multipdivstrng = 0;
-                            minus = 0;
-                            a = 0;
-                            str = 0;
-                            farts = 1;
-                            result = 0;
-
-                         }
-                       }
-                     }
-//NUMBER PAD^^
-
-/*              function add(){
-                  multclick = 0;        // resets counter for more than 1 consecutive multiplications
-                  multipstrng = 1;
-                  nums.push(document.getElementById("numbers").value);  //pushs numbers to the nums array to be added
-                  var p = nums.length - 1;
-
-              if (isNaN(parseFloat(document.getElementById("numbers").value))){ // checks if input is a number
-                nums.pop(nums[p]) // pops input if isNaN
-                return;
-                                                                  }
-              if (nums.length == 1 && nums[0] >= 0){          //checks if the first item is not negative
-                displaynums.push(document.getElementById("numbers").value);
-                document.getElementById("numdisplay").innerHTML=displaynums.join(" ");
-                    } else if (parseFloat(nums[p]) < 0){ //check if number is positive or not to affix "+" symbol
-                      displaynums.push(document.getElementById("numbers").value);
-                      document.getElementById("numdisplay").innerHTML=displaynums.join("");
-                                                    } else{
-                        displaynums.push("+" + document.getElementById("numbers").value);
-                        document.getElementById("numdisplay").innerHTML=displaynums.join("");
-                                                          }
-                                                    }
-*/
-
-        /*      function submit1(){
-              if (isNaN(parseFloat(document.getElementById("numbers").value))){ // checks if input is a number
-                nums.pop(nums[p]); // pops input if isNaN
-                return; //exit function
-                                }
-              if (multclick == 1 || divclick == 1){   //checkes if multiplication button clicked last
-                p = nums.length - 1;
-                if (isNaN(parseFloat(nums[p])) == false){ //if the last num array is not isNaN then multiply/divide
-                      multiplied1 = 0;
-
-                      if (multclick == 1){
-                        multiplied1 = (parseFloat(document.getElementById("numbers").value)) * (parseFloat(nums[p])); //if input changes between pressing multiply button and robulate then display and answer changes
-                                          }
-                      if (divclick == 1){
-                        multiplied1 = (parseFloat(nums[p]) / (parseFloat(document.getElementById("numbers").value)));
-                      }
-                      resetarrays();
-
-                      nums.push(multiplied1);
-                      if (multclick == 1){
-                        displaynums.push(multiplier1,"*" + document.getElementById("numbers").value);
-                                          }
-                      if (divclick == 1){
-                        displaynums.push(multiplier1,"/" + document.getElementById("numbers").value);
-                                          }
-
-                      document.getElementById("numdisplay").innerHTML=displaynums.join("");
-                      document.getElementById("result").innerHTML= "=" + parseFloat(multiplied1);
-                      if (multipstrng == 0){
-                        multclick = 0;
-                                            }
-
-                                                            }else{
-                                                              nums.pop(nums[p])
-                                                            }
-                                  } else{  //if not multiplication sums total
-
-                  for (var i = 0, sum = 0; i < nums.length; sum += parseFloat(nums[i++])){}
-                  document.getElementById("result").innerHTML="= " + parseFloat(sum);
-                  if (isNaN(sum)){     //checks if answer in NaN and runs clear1() if true
-                    resetarrays();
-                  }
+              multRDivCount = 0;
+              for(var k = 0; k < inputArray.length; ++k){ // counts how multiplications or divisions there are to do
+                if(inputArray[k] == "*" || inputArray[k] == "/")
+                multRDivCount++;
                 }
-              }*/
 
-          /*    function clear1(){
-                    nums.splice(0,nums.length);
-                    displaynums.splice(0,displaynums.length);
-                    document.getElementById("numdisplay").innerHTML=displaynums;
-                    document.getElementById("result").innerHTML="";
-                    document.getElementById("numbers").value="";
-                    sum = 0;
-                    multiplier1 = 0;
-                    p = 0;
-                    multclick = 0;
-                    multipstrng = 0;
-                    divclick = 0;
-                    multipdivstrng = 0;
-                        }
+              while (multRDivCount >= 0){
+                 multclick = 0;
+                 divclick = 0;
+                 window.sumIndicator = 0;
+                 inputArray.splice(0,inputArray.length); //empties display array
+                 wrkNums.splice(0,wrkNums.length);//empties number array
+                 temp.splice(0,temp.length);//empties temp array
+                 str = document.getElementById("input").value; //input numbers become string str
+                 inputArray = str.split("");//enters contents of input str into array
+                 for (let b = 0; b < inputArray.length; b++){ //loops through the input array
 
-              function resetarrays(){
-                nums.splice(0,nums.length);
-                displaynums.splice(0,displaynums.length);
-                document.getElementById("numdisplay").innerHTML=displaynums;
-              }
+                           if (isNaN(inputArray[b]) == false && b == 0){ //checks if the first char is + or - to avoid this being discounted. This is why sumIndicator is set to 0 initially
+                             window.sumIndicator++;
+                           }
 
-              function multprep(){  //sums input in preparation for mulpitpliation or division
-                for (var i = 0, sum = 0; i < nums.length; sum += parseFloat(nums[i++])){} //sum any numbers before multiplication
-                multiplier1 = sum; //sum didnt seem to work globally, need to investiagte more
-                nums.splice(0,nums.length); //empty the array
-                nums.push(multiplier1); //place the sum of the input before the multiplier nto the array
-              }
+                           if (inputArray[b] == "-" || inputArray[b] == "+"){
+                             window.sumIndicator++;
+                           }
 
-              function multiply1(){
-              if (isNaN(parseFloat(document.getElementById("numbers").value))){ // checks if input is a number
-                nums.pop(nums[p]); // pops input if isNaN
-                return; //exit function
-                      }
-              document.getElementById("result").innerHTML= ""; //removes previous result
-              multclick++; //add one to click counter
-              divclick = 0;
-              if (multclick > 1){  //if multiplication button was clicked previously
-                multclick = 1; //reseting to one for more than 1 clicks
-                multipstrng = 1; // setting to one for 2 or more consecutive multiplications
-                multprep();
-                submit1();
-                displaynums.splice(0,displaynums.length); // empty the display array
-                displaynums.push(multiplier1,"*" + document.getElementById("numbers").value); // push the sum(multiplier) * current input to display array
-                document.getElementById("numdisplay").innerHTML=displaynums.join(""); // display display array
-              } else {
-                if (nums.length !== 0){ //if there have been other numbers inputted
-                    multprep();
-                    displaynums.splice(0,displaynums.length); // empty the display array
+                           if ( inputArray[b] == "*"){
+                             a = temp.join(""); //a = temp array as string
+                             wrkNums.push(a);//push a as one item into array of number we calculate from
+                             temp.splice(0,temp.length);// empties temp array
+                             wrkNums.push("*");//pushes "*" to working array
+                             multclick = 1;
+                            }
 
-                    displaynums.push(multiplier1,"*" + document.getElementById("numbers").value); // push the sum(multiplier) * current input to display array
-                    document.getElementById("numdisplay").innerHTML=displaynums.join(""); // display display array
+                           if ( inputArray[b] == "/"){
+                             a = temp.join(""); //a = temp array as string
+                             wrkNums.push(a);//push a as one item into array of number we calculate from
+                             temp.splice(0,temp.length);// empties temp array
+                             wrkNums.push("/");//pushes "/" to working array
+                             divclick = 1;
+                            }
 
-                                      }else{ // only one number inputted
-                                    nums.push(document.getElementById("numbers").value);
-                                    displaynums.push(document.getElementById("numbers").value + "*");
-                                    document.getElementById("numdisplay").innerHTML=displaynums.join("");
-                                    //!!!!!!if our next step after this is to sum then we do not multiply!!!!!!
-                                  }
-                                }
-                                }
+                           if (window.sumIndicator == 2){
+                             a = temp.join(""); //a = temp array as string
+                             wrkNums.push(a);//push a as one item into array of number we calculate from
+                             temp.splice(0,temp.length);// empties temp array
+                             window.sumIndicator = 1;
+                            }
 
-              function divide1(){
-              if (isNaN(parseFloat(document.getElementById("numbers").value))){ // checks if input is a number
-                nums.pop(nums[p]); // pops input if isNaN
-                return; //exit function
-                        }
-                document.getElementById("result").innerHTML= ""; //removes previous result
-                divclick++;
-                multclick = 0;
-                if (divclick > 1){  //if division button was clicked previously
-                  divclick = 1; //reseting to one for more than 1 clicks
-                  multipstrng = 1; // setting to one for 2 or more consecutive division
-                  multprep();
-                  submit1();
-                } else {
-                  if (nums.length !== 0){ //if there have been other numbers inputted
-                      multprep();
-                      displaynums.splice(0,displaynums.length); // empty the display array
+                           if (isNaN(inputArray[b]) == false || inputArray[b] == "-" || inputArray[b] == "+"){ // if it IS a number, - or + we push it from the input array to the temp array
+                             temp.push(inputArray[b]);
+                            }
+                            /******MULTIPLICATION******/
+                           if (inputArray.length - 1 == b && multclick == 1 && loop == 0){
+                             a = temp.join(""); // join temp array as sting a
+                             wrkNums.push(a);//push this as one item in array
+                             temp.splice(0,temp.length);// empties temp array
+                             for (var i = 0, sum = 0; i < wrkNums.indexOf("*"); sum += parseFloat(wrkNums[i++])){} //adds up all the nmbers as far as "*"
+                             document.getElementById("result").innerHTML= parseFloat(sum) * parseFloat(wrkNums[wrkNums.indexOf("*")+1]);//multiplies the above sum with the number after "*"
+                             result = document.getElementById("result").innerHTML;
+                             wrkNums.splice(0,(wrkNums.indexOf("*")+1));//empties number array as far as "*"
+                             wrkNums.splice(0,0,sum);//replaces it wth the sum
+                             wrkNums.splice(1,0,"*");//puts the "*" symbol back in after the sum
+                             b = 0;//resets the for loop
+                             loop++;//adds 1 to the loop counter to prevent it repeating next time
+                             wrkNums.splice(0,3,result);//to accomodate more than one multiplications
+                             document.getElementById("numdisplay").innerHTML=wrkNums; //show the current state of the working array while in dev
+                             document.getElementById("input").value=wrkNums.join("");// inserts the working array as a string into the input box
+                             str = document.getElementById("input").value; //input numbers become string str
+                             inputArray = str.split("");//enters contents of str into input array
 
-                      displaynums.push(multiplier1,"/" + document.getElementById("numbers").value); // push the sum(multiplier) / current input to display array
-                      document.getElementById("numdisplay").innerHTML=displaynums.join(""); // display display array
+                            }
+                            /******DIVISION******/
+                            if (inputArray.length - 1 == b && divclick == 1 && loop == 0){
+                              a = temp.join(""); // join temp array as sting a
+                              wrkNums.push(a);//push this as one item in array
+                              temp.splice(0,temp.length);// empties temp array
+                              for (var i = 0, sum = 0; i < wrkNums.indexOf("/"); sum += parseFloat(wrkNums[i++])){} //adds up all the nmbers as far as "/"
+                              document.getElementById("result").innerHTML= parseFloat(sum) / parseFloat(wrkNums[wrkNums.indexOf("/")+1]);//multiplies the above sum with the number after "/"
+                              result = document.getElementById("result").innerHTML;
+                              wrkNums.splice(0,(wrkNums.indexOf("/")+1));//empties number array as far as "/"
+                              wrkNums.splice(0,0,sum);//replaces it wth the sum
+                              wrkNums.splice(1,0,"/");//puts the "*" symbol back in after the sum
+                              b = 0;//resets the for loop
+                              loop++;//adds 1 to the loop counter to prevent it repeating next time
+                              wrkNums.splice(0,3,result);//to accomodate more than one multiplications or divsions
+                              document.getElementById("numdisplay").innerHTML=wrkNums; //show the current state of the working array while in dev
+                              document.getElementById("input").value=wrkNums.join("");// inserts the working array as a string into the input box
+                              str = document.getElementById("input").value; //input numbers become string str
+                              inputArray = str.split("");//enters contents of str into input array
 
-                                        }else{ // only one number inputted
-                                      nums.push(document.getElementById("numbers").value);
-                                      displaynums.push(document.getElementById("numbers").value + "/");
-                                      document.getElementById("numdisplay").innerHTML=displaynums.join("");
-                                      //!!!!!!if our next step after this is to sum then we do not divide!!!!!!
-                                    }
-                                  }
-                                 }
+                             }
 
-*/
+                           if (inputArray.length - 1 == b && loop == 1){//resets loop counter to allow further multiplication. Is not run immediattly after multiplication code as "b" is reset to "0"
+                             loop = 0;
 
 
+                           }
 
-          </script>
+                         } // for loop end
 
-        </body>
-        </html>
+                             multRDivCount--; //reduces while loop counter
+
+                 } //while loop end
+
+                 /*****SUMMING*****/
+                if (multclick == 0 && divclick == 0){//if there is no multiplication or division we can just sum up
+                  a = temp.join("");// join temp array as sting a
+                  wrkNums.push(a);//pushes it to the working array
+                  for (var i = 0, sum = 0; i < wrkNums.length; sum += parseFloat(wrkNums[i++])){}//summs up the contents of the working array
+                  document.getElementById("result").innerHTML= parseFloat(sum);//displays the result
+                  document.getElementById("numdisplay").innerHTML=wrkNums;//show the current state of the working array while in dev
+                  }
+
+                }
+
+
+
+           </script>
+
+         </body>
+         </html>

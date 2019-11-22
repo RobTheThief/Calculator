@@ -142,7 +142,7 @@
                              a = temp.join(""); //a = temp array as string
                              wrkNums.push(a);//push a as one item into array of number we calculate from
                              temp.splice(0,temp.length);// empties temp array
-                             wrkNums.push(inputArray[b]);
+                             wrkNums.push("*");//pushes "*" to working array
                              multclick = 1;
                             }
 
@@ -150,7 +150,7 @@
                              a = temp.join(""); //a = temp array as string
                              wrkNums.push(a);//push a as one item into array of number we calculate from
                              temp.splice(0,temp.length);// empties temp array
-                             wrkNums.push(inputArray[b]);
+                             wrkNums.push("/");//pushes "/" to working array
                              divclick = 1;
                             }
 
@@ -164,7 +164,7 @@
                            if (isNaN(inputArray[b]) == false || inputArray[b] == "-" || inputArray[b] == "+"){ // if it IS a number, - or + we push it from the input array to the temp array
                              temp.push(inputArray[b]);
                             }
-
+                            /******MULTIPLICATION******/
                            if (inputArray.length - 1 == b && multclick == 1 && loop == 0){
                              a = temp.join(""); // join temp array as sting a
                              wrkNums.push(a);//push this as one item in array
@@ -184,6 +184,26 @@
                              inputArray = str.split("");//enters contents of str into input array
 
                             }
+                            /******DIVISION******/
+                            if (inputArray.length - 1 == b && divclick == 1 && loop == 0){
+                              a = temp.join(""); // join temp array as sting a
+                              wrkNums.push(a);//push this as one item in array
+                              temp.splice(0,temp.length);// empties temp array
+                              for (var i = 0, sum = 0; i < wrkNums.indexOf("/"); sum += parseFloat(wrkNums[i++])){} //adds up all the nmbers as far as "/"
+                              document.getElementById("result").innerHTML= parseFloat(sum) / parseFloat(wrkNums[wrkNums.indexOf("/")+1]);//multiplies the above sum with the number after "/"
+                              result = document.getElementById("result").innerHTML;
+                              wrkNums.splice(0,(wrkNums.indexOf("/")+1));//empties number array as far as "/"
+                              wrkNums.splice(0,0,sum);//replaces it wth the sum
+                              wrkNums.splice(1,0,"/");//puts the "*" symbol back in after the sum
+                              b = 0;//resets the for loop
+                              loop++;//adds 1 to the loop counter to prevent it repeating next time
+                              wrkNums.splice(0,3,result);//to accomodate more than one multiplications or divsions
+                              document.getElementById("numdisplay").innerHTML=wrkNums; //show the current state of the working array while in dev
+                              document.getElementById("input").value=wrkNums.join("");// inserts the working array as a string into the input box
+                              str = document.getElementById("input").value; //input numbers become string str
+                              inputArray = str.split("");//enters contents of str into input array
+
+                             }
 
                            if (inputArray.length - 1 == b && loop == 1){//resets loop counter to allow further multiplication. Is not run immediattly after multiplication code as "b" is reset to "0"
                              loop = 0;
@@ -197,6 +217,7 @@
 
                  } //while loop end
 
+                 /*****SUMMING*****/
                 if (multclick == 0 && divclick == 0){//if there is no multiplication or division we can just sum up
                   a = temp.join("");// join temp array as sting a
                   wrkNums.push(a);//pushes it to the working array
