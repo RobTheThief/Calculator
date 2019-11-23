@@ -3,46 +3,66 @@
 
        <div class="container-fluid">
            <header>
-             <h3>It's a</h3>
+             <h3>It's </h3>
                <h1>ROBULATOR</h1>
-               <h3>more than a calculator!</h3>
+
+               <h3>    ..... the arithmetic calculator!</h3>
            </header>
 
     <form class="mainpanel">
-           <label>INPUT</label>
-           <input type="text" name="input" id="input" placeholder="Type stuff here or press buttons"> <br> <div class="screen" id="result"></div>
-
-
-           <button type="button" id="buttons2" class="btn btn-info" onclick="submit1()">Robulate!</button>
-           <button type="button" id="buttons3" class="btn btn-info" onclick="clear1()">C</button><br><br>
-           <button type="button" id="buttons4" class="btn btn-info" onclick="multiplyIt()">*</button><br><br>
-           <button type="button" id="buttons5" class="btn btn-info" onclick="divideIt()">/</button><br><br>
-           <button type="button" id="buttons16" class="btn btn-info" onclick="decimal()">.</button><br><br>
-           <button type="button" id="buttons17" class="btn btn-info" onclick="minusnum()">-</button><br><br>
-           <button type="button" id="buttons18" class="btn btn-info" onclick="plusnum()">+</button><br><br>
-           <button type="button" id="buttons6" class="btn btn-info" onclick="num1()">1</button><br><br>
-           <button type="button" id="buttons7" class="btn btn-info" onclick="num2()">2</button><br><br>
-           <button type="button" id="buttons8" class="btn btn-info" onclick="num3()">3</button><br><br>
-           <button type="button" id="buttons9" class="btn btn-info" onclick="num4()">4</button><br><br>
-           <button type="button" id="buttons10" class="btn btn-info" onclick="num5()">5</button><br><br>
-           <button type="button" id="buttons11" class="btn btn-info" onclick="num6()">6</button><br><br>
-           <button type="button" id="buttons12" class="btn btn-info" onclick="num7()">7</button><br><br>
-           <button type="button" id="buttons13" class="btn btn-info" onclick="num8()">8</button><br><br>
-           <button type="button" id="buttons14" class="btn btn-info" onclick="num9()">9</button><br><br>
-           <button type="button" id="buttons15" class="btn btn-info" onclick="num0()">0</button><br><br>
-
-
-
-           <div class="screen" id="numdisplay"></div>
+           <input type="text" name="input" id="input" placeholder="INPUT">
            <div class="screen" id="result"></div>
-           <div class="screen" id="test"></div> <!--display output testing -->
+
+
+    <!--   <div class="screen" id="numdisplay"></div> testing -->
+  <!--     <div class="screen" id="test"></div> display output testing -->
 
 
        </form>
 
        </div> <!-- End Container-->
 
+       <table class="numberpad">
 
+         <tr>
+           <td><button type="button" id="buttons2" class="btn btn-info" onclick="submit1()">Robulate!</button></td>
+        </tr>
+
+         <tr>
+           <td><button type="button" id="buttons3" class="btn btn-info" onclick="clear1()">C</button></td>
+           <td><button type="button" id="buttons4" class="btn btn-info" onclick="multiplyIt()">*</button></td>
+           <td><button type="button" id="buttons5" class="btn btn-info" onclick="divideIt()">/</button></td>
+        </tr>
+
+         <tr>
+           <td><button type="button" id="buttons16" class="btn btn-info" onclick="decimal()">.</button></td>
+           <td><button type="button" id="buttons18" class="btn btn-info" onclick="plusnum()">+</button></td>
+           <td><button type="button" id="buttons17" class="btn btn-info" onclick="minusnum()">-</button></td>
+        </tr>
+
+        <tr>
+          <td><button type="button" id="buttons6" class="btn btn-info" onclick="num1()">1</button></td>
+          <td><button type="button" id="buttons7" class="btn btn-info" onclick="num2()">2</button></td>
+          <td><button type="button" id="buttons8" class="btn btn-info" onclick="num3()">3</button></td>
+        </tr>
+
+        <tr>
+          <td><button type="button" id="buttons9" class="btn btn-info" onclick="num4()">4</button></td>
+          <td><button type="button" id="buttons10" class="btn btn-info" onclick="num5()">5</button></td>
+          <td><button type="button" id="buttons11" class="btn btn-info" onclick="num6()">6</button></td>
+        </tr>
+
+         <tr>
+           <td><button type="button" id="buttons12" class="btn btn-info" onclick="num7()">7</button></td>
+           <td><button type="button" id="buttons13" class="btn btn-info" onclick="num8()">8</button></td>
+           <td><button type="button" id="buttons14" class="btn btn-info" onclick="num9()">9</button></td>
+        </tr>
+
+        <tr>
+          <td><button type="button" id="buttons15" class="btn btn-info" onclick="num0()">0</button></td>
+        </tr>
+
+       </table>
 
    <footer>
 
@@ -50,18 +70,32 @@
 
 
 
+
    <style>
        .mainpanel {
-           width: 100%;
+           width: 130%;
        }
 
-       #buttons2,
-       #buttons3
+       #input,
+       #result
+
+       {
+          float: center;
+          width: 75%;
+
+      }
+
+      .numberpad {
+          width: 70%;
+      }
+       #buttons2
+
         {
-           float: right;
-           width: 50%;
+           float: left;
+           width: 175%;
        background:#dbdbdb;
        }
+       #buttons3,
        #buttons4,
        #buttons5,
        #buttons16,
@@ -75,14 +109,20 @@
        #buttons11,
        #buttons12,
        #buttons13,
-       #buttons14,
-       #buttons15
+       #buttons14
        {
-           float: left;
-           width: 20%;
+           float: right;
+           width: 100%;
        background:#dbdbdb;
        }
 
+       #buttons15
+
+       {
+           float: right;
+           width: 50%;
+       background:#dbdbdb;
+       }
        </style>
 
 
@@ -103,6 +143,7 @@
                var loop = 0;
                var multRDivCount = 0;
                var savedInput = 0;
+               document.getElementById("result").innerHTML = " = RESULT";
  // NUMBER PAD
                function num1(){
                document.getElementById("input").value += 1; //adds "1" to the end of the input
@@ -169,7 +210,7 @@
                  wrkNums.splice(0,wrkNums.length);//empties working number array
                  temp.splice(0,temp.length);//empties temp array
                  document.getElementById("input").value = "";
-                 document.getElementById("result").innerHTML = "";
+                 document.getElementById("result").innerHTML = " = RESULT";
                  document.getElementById("test").innerHTML = "";
                  document.getElementById("numdisplay").innerHTML = "";
                  sumIndicator = 0;
@@ -253,7 +294,7 @@
                              wrkNums.push(a);//push this as one item in array
                              temp.splice(0,temp.length);// empties temp array
                              for (var i = 0, sum = 0; i < wrkNums.indexOf("*"); sum += parseFloat(wrkNums[i++])){} //adds up all the nmbers as far as "*"
-                             document.getElementById("result").innerHTML= parseFloat(sum) * parseFloat(wrkNums[wrkNums.indexOf("*")+1]);//multiplies the above sum with the number after "*"
+                             document.getElementById("result").innerHTML=" = "+parseFloat(sum) * parseFloat(wrkNums[wrkNums.indexOf("*")+1]);//multiplies the above sum with the number after "*"
                              result = document.getElementById("result").innerHTML;
                              wrkNums.splice(0,(wrkNums.indexOf("*")+1));//empties number array as far as "*"
                              wrkNums.splice(0,0,sum);//replaces it wth the sum
@@ -261,7 +302,6 @@
                              b = 0;//resets the for loop
                              loop++;//adds 1 to the loop counter to prevent it repeating next time
                              wrkNums.splice(0,3,result);//to accomodate more than one multiplications
-                             document.getElementById("numdisplay").innerHTML=wrkNums; //show the current state of the working array while in dev
                              document.getElementById("input").value=wrkNums.join("");// inserts the working array as a string into the input box
                              str = document.getElementById("input").value; //input numbers become string str
                              inputArray = str.split("");//enters contents of str into input array
@@ -273,7 +313,7 @@
                               wrkNums.push(a);//push this as one item in array
                               temp.splice(0,temp.length);// empties temp array
                               for (var i = 0, sum = 0; i < wrkNums.indexOf("/"); sum += parseFloat(wrkNums[i++])){} //adds up all the nmbers as far as "/"
-                              document.getElementById("result").innerHTML= parseFloat(sum) / parseFloat(wrkNums[wrkNums.indexOf("/")+1]);//multiplies the above sum with the number after "/"
+                              document.getElementById("result").innerHTML=" = "+ parseFloat(sum) / parseFloat(wrkNums[wrkNums.indexOf("/")+1]);//multiplies the above sum with the number after "/"
                               result = document.getElementById("result").innerHTML;
                               wrkNums.splice(0,(wrkNums.indexOf("/")+1));//empties number array as far as "/"
                               wrkNums.splice(0,0,sum);//replaces it wth the sum
@@ -281,7 +321,6 @@
                               b = 0;//resets the for loop
                               loop++;//adds 1 to the loop counter to prevent it repeating next time
                               wrkNums.splice(0,3,result);//to accomodate more than one multiplications or divsions
-                              document.getElementById("numdisplay").innerHTML=wrkNums; //show the current state of the working array while in dev
                               document.getElementById("input").value=wrkNums.join("");// inserts the working array as a string into the input box
                               str = document.getElementById("input").value; //input numbers become string str
                               inputArray = str.split("");//enters contents of str into input array
@@ -305,10 +344,11 @@
                   a = temp.join("");// join temp array as sting a
                   wrkNums.push(a);//pushes it to the working array
                   for (var i = 0, sum = 0; i < wrkNums.length; sum += parseFloat(wrkNums[i++])){}//summs up the contents of the working array
-                  document.getElementById("result").innerHTML= parseFloat(sum);//displays the result
-                  document.getElementById("numdisplay").innerHTML=wrkNums;//show the current state of the working array while in dev
+                  document.getElementById("result").innerHTML=" = "+ parseFloat(sum);//displays the result
                   }
+
               document.getElementById("input").value = savedInput;//puts the original input back
+
               }// submit sunction end
 
 
