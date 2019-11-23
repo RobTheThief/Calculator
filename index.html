@@ -10,16 +10,27 @@
 
     <form class="mainpanel">
            <label>INPUT</label>
-           <input type="text" name="input" id="input" placeholder="enter real number"> <br>
+           <input type="text" name="input" id="input" placeholder="Type stuff here or press buttons"> <br> <div class="screen" id="result"></div>
 
-           <button type="button" id="buttons1" class="btn btn-info" onclick="add()">SUM</button>
+
            <button type="button" id="buttons2" class="btn btn-info" onclick="submit1()">Robulate!</button>
            <button type="button" id="buttons3" class="btn btn-info" onclick="clear1()">C</button><br><br>
-           <button type="button" id="buttons4" class="btn btn-info" onclick="multiply1()">*</button><br><br>
-           <button type="button" id="buttons5" class="btn btn-info" onclick="divide1()">/</button><br><br>
+           <button type="button" id="buttons4" class="btn btn-info" onclick="multiplyIt()">*</button><br><br>
+           <button type="button" id="buttons5" class="btn btn-info" onclick="divideIt()">/</button><br><br>
+           <button type="button" id="buttons16" class="btn btn-info" onclick="decimal()">.</button><br><br>
+           <button type="button" id="buttons17" class="btn btn-info" onclick="minusnum()">-</button><br><br>
+           <button type="button" id="buttons18" class="btn btn-info" onclick="plusnum()">+</button><br><br>
            <button type="button" id="buttons6" class="btn btn-info" onclick="num1()">1</button><br><br>
-           <button type="button" id="buttons7" class="btn btn-info" onclick="minusnum()">-</button><br><br>
-           <button type="button" id="buttons8" class="btn btn-info" onclick="plusnum()">+</button><br><br>  <!-- does nothing! HA HA -->
+           <button type="button" id="buttons7" class="btn btn-info" onclick="num2()">2</button><br><br>
+           <button type="button" id="buttons8" class="btn btn-info" onclick="num3()">3</button><br><br>
+           <button type="button" id="buttons9" class="btn btn-info" onclick="num4()">4</button><br><br>
+           <button type="button" id="buttons10" class="btn btn-info" onclick="num5()">5</button><br><br>
+           <button type="button" id="buttons11" class="btn btn-info" onclick="num6()">6</button><br><br>
+           <button type="button" id="buttons12" class="btn btn-info" onclick="num7()">7</button><br><br>
+           <button type="button" id="buttons13" class="btn btn-info" onclick="num8()">8</button><br><br>
+           <button type="button" id="buttons14" class="btn btn-info" onclick="num9()">9</button><br><br>
+           <button type="button" id="buttons15" class="btn btn-info" onclick="num0()">0</button><br><br>
+
 
 
            <div class="screen" id="numdisplay"></div>
@@ -41,21 +52,37 @@
 
    <style>
        .mainpanel {
-           width: 50%;
+           width: 100%;
        }
 
-       #buttons1,
        #buttons2,
-       #buttons3,
-       #buttons4,
-       #buttons5,
-       #buttons6,
-       #buttons7,
-       #buttons8 {
-           float: left;
+       #buttons3
+        {
+           float: right;
            width: 50%;
        background:#dbdbdb;
        }
+       #buttons4,
+       #buttons5,
+       #buttons16,
+       #buttons17,
+       #buttons18,
+       #buttons6,
+       #buttons7,
+       #buttons8,
+       #buttons9,
+       #buttons10,
+       #buttons11,
+       #buttons12,
+       #buttons13,
+       #buttons14,
+       #buttons15
+       {
+           float: left;
+           width: 20%;
+       background:#dbdbdb;
+       }
+
        </style>
 
 
@@ -67,50 +94,100 @@
                var wrkNums = [];
                var inputArray = [];
                var sumIndicator = 0;
-               var sumcounter = 0;
                var sum = 0;
-               var multiplier1 = 0;
-               var p = 0;
                var multclick = 0;
-               var multipstrng = 0;
                var divclick = 0;
-               var multipdivstrng = 0;
-               var minus = 0;
                var a = 0;
                var str = 0;
-               var farts = 1;
                var result = 0;
                var loop = 0;
-               var checker = 0;
                var multRDivCount = 0;
+               var savedInput = 0;
  // NUMBER PAD
                function num1(){
                document.getElementById("input").value += 1; //adds "1" to the end of the input
+                }
 
+               function num2(){
+               document.getElementById("input").value += 2;
+               }
+
+               function num3(){
+               document.getElementById("input").value += 3;
+                }
+
+               function num4(){
+               document.getElementById("input").value += 4;
+               }
+
+               function num5(){
+               document.getElementById("input").value += 5;
+                }
+
+               function num6(){
+               document.getElementById("input").value += 6;
+               }
+
+               function num7(){
+               document.getElementById("input").value += 7;
+                }
+
+               function num8(){
+               document.getElementById("input").value += 8;
+               }
+
+               function num9(){
+               document.getElementById("input").value += 9;
+               }
+
+               function num0(){
+               document.getElementById("input").value += 0;
                 }
 
                function minusnum(){
-               document.getElementById("input").value += "-";
+               document.getElementById("input").value += "-"; //adds "-" to the end of the input
                }
 
-                       // consider this to detect multiplications
+               function plusnum(){
+               document.getElementById("input").value += "+"; //adds "+" to the end of the input
+               }
 
-                       // const thisisit = ["lookhere", "ohnice"];
-                       // const itis = thisisit[1];
-                       // console.log(itis.includes("i")); //returns "true"
+               function multiplyIt(){
+               document.getElementById("input").value += "*"; //adds "*" to the end of the input
+               }
 
-                       //consider this for summing numbers
-                       /*const numbers = [1, 2, 4, 10];
+               function divideIt(){
+               document.getElementById("input").value += "/"; //adds "/" to the end of the input
+               }
 
-                       const summednums = numbers.reduce((accumulator, currentValue) => {
-                       return accumulator + currentValue
-                       })*/
+               function decimal(){
+               document.getElementById("input").value += "."; //adds "." to the end of the input
+               }
+
+               function clear1(){
+                 inputArray.splice(0,inputArray.length); //empties input array
+                 wrkNums.splice(0,wrkNums.length);//empties working number array
+                 temp.splice(0,temp.length);//empties temp array
+                 document.getElementById("input").value = "";
+                 document.getElementById("result").innerHTML = "";
+                 document.getElementById("test").innerHTML = "";
+                 document.getElementById("numdisplay").innerHTML = "";
+                 sumIndicator = 0;
+                 multclick = 0;
+                 divclick = 0;
+                 a = 0;
+                 str = 0;
+                 result = 0;
+                 loop = 0;
+                 multRDivCount = 0;
+               }
 
             function submit1(){
               inputArray.splice(0,inputArray.length); //empties input array
               wrkNums.splice(0,wrkNums.length);//empties working number array
               temp.splice(0,temp.length);//empties temp array
               str = document.getElementById("input").value; //input numbers become string str
+              savedInput = document.getElementById("input").value;//saves the input to put it back at the end
               inputArray = str.split("");//enters contents of input str into input array
 
               multRDivCount = 0;
@@ -128,6 +205,7 @@
                  temp.splice(0,temp.length);//empties temp array
                  str = document.getElementById("input").value; //input numbers become string str
                  inputArray = str.split("");//enters contents of input str into array
+
                  for (let b = 0; b < inputArray.length; b++){ //loops through the input array
 
                            if (isNaN(inputArray[b]) == false && b == 0){ //checks if the first char is + or - to avoid this being discounted. This is why sumIndicator is set to 0 initially
@@ -161,10 +239,15 @@
                              window.sumIndicator = 1;
                             }
 
-                           if (isNaN(inputArray[b]) == false || inputArray[b] == "-" || inputArray[b] == "+"){ // if it IS a number, - or + we push it from the input array to the temp array
+                           if (isNaN(inputArray[b]) == false || inputArray[b] == "-" || inputArray[b] == "+" || inputArray[b] == "."){ // if it IS a number, - or + we push it from the input array to the temp array
                              temp.push(inputArray[b]);
                             }
-                            /******MULTIPLICATION******/
+
+                           if (wrkNums.indexOf("*") > wrkNums.indexOf("/") && divclick == 1){ //checks if there is multiplication after division and prevents the multiplication happening first
+                             multclick = 0;
+                            }
+
+/******MULTIPLICATION******/
                            if (inputArray.length - 1 == b && multclick == 1 && loop == 0){
                              a = temp.join(""); // join temp array as sting a
                              wrkNums.push(a);//push this as one item in array
@@ -184,7 +267,7 @@
                              inputArray = str.split("");//enters contents of str into input array
 
                             }
-                            /******DIVISION******/
+      /******DIVISION******/
                             if (inputArray.length - 1 == b && divclick == 1 && loop == 0){
                               a = temp.join(""); // join temp array as sting a
                               wrkNums.push(a);//push this as one item in array
@@ -194,7 +277,7 @@
                               result = document.getElementById("result").innerHTML;
                               wrkNums.splice(0,(wrkNums.indexOf("/")+1));//empties number array as far as "/"
                               wrkNums.splice(0,0,sum);//replaces it wth the sum
-                              wrkNums.splice(1,0,"/");//puts the "*" symbol back in after the sum
+                              wrkNums.splice(1,0,"/");//puts the "/" symbol back in after the sum
                               b = 0;//resets the for loop
                               loop++;//adds 1 to the loop counter to prevent it repeating next time
                               wrkNums.splice(0,3,result);//to accomodate more than one multiplications or divsions
@@ -217,7 +300,7 @@
 
                  } //while loop end
 
-                 /*****SUMMING*****/
+/****SUMMING****/
                 if (multclick == 0 && divclick == 0){//if there is no multiplication or division we can just sum up
                   a = temp.join("");// join temp array as sting a
                   wrkNums.push(a);//pushes it to the working array
@@ -225,8 +308,8 @@
                   document.getElementById("result").innerHTML= parseFloat(sum);//displays the result
                   document.getElementById("numdisplay").innerHTML=wrkNums;//show the current state of the working array while in dev
                   }
-
-                }
+              document.getElementById("input").value = savedInput;//puts the original input back
+              }// submit sunction end
 
 
 
