@@ -6,16 +6,19 @@
              <h3>It's </h3>
                <h1>ROBULATOR</h1>
 
-               <h3>    ..... the arithmetic calculator!</h3>
+               <h3>    ..... the awesome calculator!</h3>
            </header>
 
-    <form class="mainpanel">
+        <form class="mainpanel">
            <input type="text" name="input" id="input" placeholder="INPUT">
            <div class="screen" id="result"></div>
 
+           <label class="switch">
+             <input type="checkbox" id="modeCheckbox" onclick="calcMode()" ><span class="slider round"></span>
+           </label>
 
-    <!--   <div class="screen" id="numdisplay"></div> testing -->
-  <!--     <div class="screen" id="test"></div> display output testing -->
+           <!--  testing  <div class="screen" id="numdisplay"></div>  -->
+           <div class="screen" id="modeDisp"></div>
 
 
        </form>
@@ -72,6 +75,69 @@
 
 
    <style>
+
+   .switch {
+     position: relative;
+     display: inline-block;
+     width: 30px;
+     height: 20px;
+   }
+
+   /* Hide default HTML checkbox */
+   .switch input {
+     opacity: 0;
+     width: 0;
+     height: 0;
+   }
+
+   /* The slider */
+   .slider {
+     position: absolute;
+     cursor: pointer;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     background-color: #ccc;
+     -webkit-transition: .4s;
+     transition: .4s;
+   }
+
+   .slider:before {
+     position: absolute;
+     content: "";
+     height: 13px;
+     width: 13px;
+     left: 2px;
+     bottom: 4px;
+     background-color: white;
+     -webkit-transition: .4s;
+     transition: .4s;
+   }
+
+   input:checked + .slider {
+     background-color: #2196F3;
+   }
+
+   input:focus + .slider {
+     box-shadow: 0 0 1px #2196F3;
+   }
+
+   input:checked + .slider:before {
+     -webkit-transform: translateX(13px);
+     -ms-transform: translateX(13px);
+     transform: translateX(13px);
+   }
+
+   /* Rounded sliders */
+   .slider.round {
+     border-radius: 34px;
+   }
+
+   .slider.round:before {
+     border-radius: 50%;
+   }
+
        .mainpanel {
            width: 130%;
        }
@@ -143,7 +209,24 @@
                var loop = 0;
                var multRDivCount = 0;
                var savedInput = 0;
-               document.getElementById("result").innerHTML = " = RESULT";
+               var mode = "algebra";
+               document.getElementById("result").innerHTML = " = ";
+               document.getElementById("modeDisp").innerHTML="ALGEBRAIC"
+
+  //CHECKBOX
+               function calcMode(){
+                 // Get the checkbox
+                 var checkBox = document.getElementById("modeCheckbox");
+
+                 // If the checkbox is checked, display the output text
+                 if (checkBox.checked == true){
+                   mode = "arithmetic";
+                   document.getElementById("modeDisp").innerHTML="ARITHMETIC"
+                 } else {
+                   mode = "algebra";
+                   document.getElementById("modeDisp").innerHTML="ALGEBRAIC"
+                 }
+               }
  // NUMBER PAD
                function num1(){
                document.getElementById("input").value += 1; //adds "1" to the end of the input
@@ -210,9 +293,7 @@
                  wrkNums.splice(0,wrkNums.length);//empties working number array
                  temp.splice(0,temp.length);//empties temp array
                  document.getElementById("input").value = "";
-                 document.getElementById("result").innerHTML = " = RESULT";
-                 document.getElementById("test").innerHTML = "";
-                 document.getElementById("numdisplay").innerHTML = "";
+                 document.getElementById("result").innerHTML = " = ";
                  sumIndicator = 0;
                  multclick = 0;
                  divclick = 0;
@@ -263,6 +344,11 @@
                              temp.splice(0,temp.length);// empties temp array
                              wrkNums.push("*");//pushes "*" to working array
                              multclick = 1;
+                             window.sumIndicator = 0; //used to fix having a symbol after multiplication or division. This also means that there must be a "+" even if not input by user
+
+                               if (inputArray[b+1] >= 0 && inputArray[b+1] !== "-" && inputArray[b+1] !== "+"){ // add "+" to input before num after "*" as sumIndicator was zeroed previously to accomodate having a symbol after multiplication or division.
+                                 inputArray.splice(b+1,0,"+");
+                               }
                             }
 
                            if ( inputArray[b] == "/"){
@@ -271,6 +357,11 @@
                              temp.splice(0,temp.length);// empties temp array
                              wrkNums.push("/");//pushes "/" to working array
                              divclick = 1;
+                             window.sumIndicator = 0; //used to fix parsing error caused by having a symbol after multiplication or division. This also means that there must be a "+" even if not input by user
+
+                             if (inputArray[b+1] >= 0 && inputArray[b+1] !== "-" && inputArray[b+1] !== "+"){ // add "+" to input before the num after "/" as sumIndicator was zeroed previously to accomodate having a symbol after multiplication or division.
+                               inputArray.splice(b+1,0,"+");
+                             }
                             }
 
                            if (window.sumIndicator == 2){
@@ -288,49 +379,78 @@
                              multclick = 0;
                             }
 
-/******MULTIPLICATION******/
+
                            if (inputArray.length - 1 == b && multclick == 1 && loop == 0){
-                             a = temp.join(""); // join temp array as sting a
-                             wrkNums.push(a);//push this as one item in array
-                             temp.splice(0,temp.length);// empties temp array
-                             for (var i = 0, sum = 0; i < wrkNums.indexOf("*"); sum += parseFloat(wrkNums[i++])){} //adds up all the nmbers as far as "*"
-                             document.getElementById("result").innerHTML=" = "+parseFloat(sum) * parseFloat(wrkNums[wrkNums.indexOf("*")+1]);//multiplies the above sum with the number after "*"
-                             result = document.getElementById("result").innerHTML;
-                             wrkNums.splice(0,(wrkNums.indexOf("*")+1));//empties number array as far as "*"
-                             wrkNums.splice(0,0,sum);//replaces it wth the sum
-                             wrkNums.splice(1,0,"*");//puts the "*" symbol back in after the sum
-                             b = 0;//resets the for loop
-                             loop++;//adds 1 to the loop counter to prevent it repeating next time
-                             wrkNums.splice(0,3,result);//to accomodate more than one multiplications
-                             document.getElementById("input").value=wrkNums.join("");// inserts the working array as a string into the input box
-                             str = document.getElementById("input").value; //input numbers become string str
-                             inputArray = str.split("");//enters contents of str into input array
+/*ALGEBRAIC MULTIPLICATION*/  if(mode == "algebra"){
+                                 a = temp.join(""); // join temp array as sting a
+                                 wrkNums.push(a);//push this as one item in array
+                                 temp.splice(0,temp.length);// empties temp array
+                                 result=+ parseFloat(wrkNums[wrkNums.indexOf("*")-1]) * parseFloat(wrkNums[wrkNums.indexOf("*")+1]);//divides the item in the array after the "*" with the item before "*"
 
+                                 if (result >= 0){ //if the result is positive or "0" we add a + symbol so that the input string is sorted correctly
+                                   result = "+"+result;
+                                 }
+
+                                 b = 0;//resets the for loop
+                                 loop++;//adds 1 to the loop counter to prevent it repeating next time
+                                 wrkNums.splice(wrkNums.indexOf("*")-1,3,result);//replaced the multiplied section off the array with the result of the multiplication
+                                 document.getElementById("input").value=wrkNums.join("");// inserts the working array as a string into the input box
+                                 str = document.getElementById("input").value; //input numbers become string str
+                                 inputArray = str.split("");//enters contents of str into input array
+/**ARITHMETIC MULTIPLICATION**/  }else{
+                                 a = temp.join(""); // join temp array as sting a
+                                 wrkNums.push(a);//push this as one item in array
+                                 temp.splice(0,temp.length);// empties temp array
+                                 for (var i = 0, sum = 0; i < wrkNums.indexOf("*"); sum += parseFloat(wrkNums[i++])){} //adds up all the nmbers as far as "*"
+                                 result=parseFloat(sum) * parseFloat(wrkNums[wrkNums.indexOf("*")+1]);//multiplies the above sum with the number after "*"
+                                 wrkNums.splice(0,(wrkNums.indexOf("*")+1));//empties number array as far as "*"
+                                 wrkNums.splice(0,0,sum);//replaces it wth the sum
+                                 wrkNums.splice(1,0,"*");//puts the "*" symbol back in after the sum
+                                 b = 0;//resets the for loop
+                                 loop++;//adds 1 to the loop counter to prevent it repeating next time
+                                 wrkNums.splice(0,3,result);//to accomodate more than one multiplications
+                                 document.getElementById("input").value=wrkNums.join("");// inserts the working array as a string into the input box
+                                 str = document.getElementById("input").value; //input numbers become string str
+                                 inputArray = str.split("");//enters contents of str into input array
+                               }
                             }
-      /******DIVISION******/
-                            if (inputArray.length - 1 == b && divclick == 1 && loop == 0){
-                              a = temp.join(""); // join temp array as sting a
-                              wrkNums.push(a);//push this as one item in array
-                              temp.splice(0,temp.length);// empties temp array
-                              for (var i = 0, sum = 0; i < wrkNums.indexOf("/"); sum += parseFloat(wrkNums[i++])){} //adds up all the nmbers as far as "/"
-                              document.getElementById("result").innerHTML=" = "+ parseFloat(sum) / parseFloat(wrkNums[wrkNums.indexOf("/")+1]);//multiplies the above sum with the number after "/"
-                              result = document.getElementById("result").innerHTML;
-                              wrkNums.splice(0,(wrkNums.indexOf("/")+1));//empties number array as far as "/"
-                              wrkNums.splice(0,0,sum);//replaces it wth the sum
-                              wrkNums.splice(1,0,"/");//puts the "/" symbol back in after the sum
-                              b = 0;//resets the for loop
-                              loop++;//adds 1 to the loop counter to prevent it repeating next time
-                              wrkNums.splice(0,3,result);//to accomodate more than one multiplications or divsions
-                              document.getElementById("input").value=wrkNums.join("");// inserts the working array as a string into the input box
-                              str = document.getElementById("input").value; //input numbers become string str
-                              inputArray = str.split("");//enters contents of str into input array
 
-                             }
+                            if (inputArray.length - 1 == b && divclick == 1 && loop == 0){
+/**ALGEBRAIC DIVISION***/      if(mode == "algebra"){
+                                  a = temp.join(""); // join temp array as sting a
+                                  wrkNums.push(a);//push this as one item in array
+                                  temp.splice(0,temp.length);// empties temp array
+                                  result=+ parseFloat(wrkNums[wrkNums.indexOf("/")-1]) / parseFloat(wrkNums[wrkNums.indexOf("/")+1]);//divides the item in the array after the "*" with the item before "*"
+
+                                  if (result >= 0){ //if the result is positive or "0" we add a + symbol so that the input string is sorted correctly
+                                    result = "+"+result;
+                                  }
+                                  b = 0;//resets the for loop
+                                  loop++;//adds 1 to the loop counter to prevent it repeating next time
+                                  wrkNums.splice(wrkNums.indexOf("/")-1,3,result);//replaced the multiplied section off the array with the result of the multiplication
+                                  document.getElementById("input").value=wrkNums.join("");// inserts the working array as a string into the input box
+                                  str = document.getElementById("input").value; //input numbers become string str
+                                  inputArray = str.split("");//enters contents of str into input array
+/******ARITHMETIC DVISION*****/   }else{
+                                  a = temp.join(""); // join temp array as sting a
+                                  wrkNums.push(a);//push this as one item in array
+                                  temp.splice(0,temp.length);// empties temp array
+                                  for (var i = 0, sum = 0; i < wrkNums.indexOf("/"); sum += parseFloat(wrkNums[i++])){} //adds up all the nmbers as far as "/"
+                                  result=parseFloat(sum) / parseFloat(wrkNums[wrkNums.indexOf("/")+1]);//multiplies the above sum with the number after "/"
+                                  wrkNums.splice(0,(wrkNums.indexOf("/")+1));//empties number array as far as "/"
+                                  wrkNums.splice(0,0,sum);//replaces it wth the sum
+                                  wrkNums.splice(1,0,"/");//puts the "/" symbol back in after the sum
+                                  b = 0;//resets the for loop
+                                  loop++;//adds 1 to the loop counter to prevent it repeating next time
+                                  wrkNums.splice(0,3,result);//to accomodate more than one multiplications or divsions
+                                  document.getElementById("input").value=wrkNums.join("");// inserts the working array as a string into the input box
+                                  str = document.getElementById("input").value; //input numbers become string str
+                                  inputArray = str.split("");//enters contents of str into input array
+                                }
+                           }
 
                            if (inputArray.length - 1 == b && loop == 1){//resets loop counter to allow further multiplication. Is not run immediattly after multiplication code as "b" is reset to "0"
                              loop = 0;
-
-
                            }
 
                          } // for loop end
@@ -350,8 +470,6 @@
               document.getElementById("input").value = savedInput;//puts the original input back
 
               }// submit sunction end
-
-
 
            </script>
 
