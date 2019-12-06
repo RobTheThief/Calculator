@@ -3,22 +3,28 @@
 
        <div class="container-fluid">
            <header>
-             <h3>It's </h3>
-               <h1>ROBULATOR</h1>
+              <h3>   <!-- It's --></h3><br>
+             <h1>ROBULATOR</h1>
 
-               <h3>    ..... my two-way calculator!</h3>
+               <h3>    <!-- ...my two-way calculator!--></h3>
            </header>
 
         <form class="mainpanel" onkeypress="return event.keyCode != 13"> <!-- !=13 to prevent enter refeshing the page -->
-          <div class="screen" id="modeDisp"></div>
-          <div class="screen" id="modeExample"></div>
-          <label class="switch">
-            <input type="checkbox" id="modeCheckbox" onclick="calcMode()" ><span class="slider round"></span>
-          </label><br><br>
+
+
+          <table>
+            <tr>
+                <td>  <div class="screen" id="modeDisp"></div> </td>
+
+                <td><label class="switch"><input type="checkbox" id="modeCheckbox" onclick="calcMode()" ><span class="slider round"></span></label></td>
+            </tr>
+          </table>
+          <div class="screen" id="modeExample"></div><br>
+
           <input type="text" name="input" id="input" placeholder="INPUT">
           <div class="screen" id="result"></div>
-          <div class="screen" id="modeDisp"></div>
-          <div class="screen" id="modeExample"></div>
+
+          <button type="button" id="buttons2" class="btn btn-info" onclick="submit1()">Robulate!</button>
 
        </form>
 
@@ -26,9 +32,8 @@
 
        <table class="numberpad">
 
-         <tr>
-          <td><button type="button" id="buttons2" class="btn btn-info" onclick="submit1()">Robulate!</button></td>
-        </tr>
+
+
 
          <tr>
           <td><button type="button" id="buttons3" class="btn btn-info" onclick="clear1()">C</button></td>
@@ -63,6 +68,7 @@
         </tr>
 
         <tr>
+          <td><button type="button" id="ghostButton" class="btn btn-info" >0</button></td>
           <td><button type="button" id="buttons15" class="btn btn-info" onclick="num0()">0</button></td>
         </tr>
 
@@ -76,7 +82,7 @@
 
 
    <style>
-
+/***************** SLIDER *****************/
    .switch {
      position: relative;
      display: inline-block;
@@ -138,9 +144,47 @@
    .slider.round:before {
      border-radius: 50%;
    }
+  /***************** SLIDER *****************/
+
+
+
+
+
+         .numberpad {
+             width: 250px;
+         }
+
+         h1 {
+           color: #ffffff;
+           font-size: 24;
+         }
+
+         h3 {
+           color: #0000CD;
+
+         }
+
+         #modeDisp,
+         #modeExample
+            {
+        color: #ffffff;
+        font-size: 12;
+        font-weight: bold;
+        width: 140px;
+        text-decoration: underline;
+
+         }
+
+        html {
+          background-image: url("img/tempCalcBack.png");
+          background-repeat: no-repeat; /* Do not repeat the image */
+          background-size: cover; /* Resize the background image to cover the entire container */
+          height: 480px;
+          width: 280px;
+        }
 
        .mainpanel {
-           width: 130%;
+
 
        }
 
@@ -148,24 +192,27 @@
        #result
 
        {
-          float: center;
-          width: 75%;
+
+        /*   float: center; */
           border: none;
           border-width: 0;
           box-shadow: none;
-
+          background-blend-mode: overlay;
+          background-color: rgba(0,0,0,0.8);
+          color: #FFF;
+          width: 250px;
       }
 
-      .numberpad {
-          width: 70%;
-      }
+
        #buttons2
-
         {
-           float: left;
-           width: 175%;
+          /* float: left;  */
        background:#dbdbdb;
+       max-width: 80px;
+       min-width: 80px;
+       border-radius: 8px;
        }
+
        #buttons3,
        #buttons4,
        #buttons5,
@@ -184,20 +231,31 @@
        #buttons19,
        #buttons20
        {
-           float: right;
-           width: 100%;
+      /*      float: left; */
        background:#dbdbdb;
+       max-width: 50px;
+       min-width: 50px;
+       border-radius: 8px;
+
+
        }
 
        #buttons15
 
        {
-           float: right;
-           width: 50%;
+        float: centre;
        background:#dbdbdb;
+       max-width: 50px;
+       min-width: 50px;
+       border-radius: 8px;
        }
 
-
+       #ghostButton
+       {
+        background: transparent;
+        border: none;
+        font-size:0;
+       }
        </style>
 
 
@@ -209,8 +267,6 @@
    var wrkNums = [];
    var inputArray = [];
    var inputPopList = [];
-   var percentageArray = [];
-   var percentageTemp = [];
    var perc = 0;
    var calcPercentage = 0;
    var percentOfResult = 0;
@@ -218,22 +274,18 @@
    var sum = 0;
    var multclick = 0;
    var divclick = 0;
-   var percentClick = 0;
    var a = 0;
    var perc = 0;
    var str = 0;
    var result = 0;
    var loop = 0;
    var multRDivCount = 0;
-   var countRef = 0;
    var savedInput = 0;
    var mode = "algebra";
-   var holyshit = 0;
-   var forcount = 0;
    var percOperator = 0;
    document.getElementById("result").innerHTML = " = ";
-   document.getElementById("modeDisp").innerHTML="ALGEBRAIC MODE";
-   document.getElementById("modeExample").innerHTML="Eg.1+(2*3)=7";
+   document.getElementById("modeDisp").innerHTML="ALGEBRA MODE";
+   document.getElementById("modeExample").innerHTML="E.g. 1+(2*3) = 7";
 
    var hitsEnter = document.getElementById("input"); // submits input when you hit enter
    hitsEnter.addEventListener("keyup", function(event) {
@@ -250,12 +302,12 @@
      // If the checkbox is checked, display the output text
      if (checkBox.checked == true){
        mode = "arithmetic";
-       document.getElementById("modeDisp").innerHTML="ARITHMETICAL MODE";
-       document.getElementById("modeExample").innerHTML="Eg.(1+2)*3=9";
+       document.getElementById("modeDisp").innerHTML="ARITHMETIC MODE";
+       document.getElementById("modeExample").innerHTML="E.g. (1+2)*3 = 9";
      } else {
        mode = "algebra";
-       document.getElementById("modeDisp").innerHTML="ALGEBRAIC MODE"
-       document.getElementById("modeExample").innerHTML="Eg.1+(2*3)=7";
+       document.getElementById("modeDisp").innerHTML="ALGEBRA MODE"
+       document.getElementById("modeExample").innerHTML="E.g. 1+(2*3) = 7";
      }
    }
 // NUMBER PAD
@@ -348,7 +400,6 @@
    }
 
   function submit1(){
-    percentClick = 0;
     perc = 0;
     inputArray.splice(0,inputArray.length); //empties input array
     wrkNums.splice(0,wrkNums.length);//empties working number array
@@ -397,6 +448,7 @@
 
     savedInput = document.getElementById("input").value;//saves the input to put it back at the end
 
+//PERCENTAGE CALCULATION PREP
     if(inputArray[inputArray.length - 1] == "%"){
       calcPercentage = 1;
       inputArray.pop(inputArray.length - 1);
@@ -585,18 +637,18 @@
           perc = "."+perc;
           percentOfResult = result * perc;
           if(percOperator == "*"){
-            document.getElementById("result").innerHTML =result * perc;
+            result = result * perc;
           }
           if(percOperator == "/"){
-            document.getElementById("result").innerHTML =result / perc;
+            result = result / perc;
           }
           if(percOperator == "-"){
-            document.getElementById("result").innerHTML =result - percentOfResult;
+            result = result - percentOfResult;
           }
           if(percOperator == "+"){
-            document.getElementById("result").innerHTML =result + percentOfResult;
+            result = result + percentOfResult;
           }
-        document.getElementById("result").innerHTML = "= "+document.getElementById("result").innerHTML;
+        document.getElementById("result").innerHTML = "= "+result;
         calcPercentage = 0;
       }
       if (isNaN(result)){
