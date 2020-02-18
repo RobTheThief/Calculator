@@ -1,0 +1,26 @@
+{
+  "name": "robulator",
+  "version": "0.0.1",
+  "description": "Calculator",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "build:css": "tailwind build src/style.css -o css/main.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobTheThief/Calculator.git"
+  },
+  "keywords": [
+    "calculator",
+    "robulator"
+  ],
+  "author": "RobTheThief",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/RobTheThief/Calculator/issues"
+  },
+  "homepage": "https://github.com/RobTheThief/Calculator#readme"
+}

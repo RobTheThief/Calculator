@@ -1,78 +1,85 @@
 <html>
+<head> 
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/oldcssbkupb4tailwind.css">
+</head>
    <body>
 
-       <div class="container-fluid">
+       <div>
            <header>
               <h3>   <!-- It's --></h3><br>
-             <h1>ROBULATOR</h1>
+             <h1 style = "position:relative; left:5px;" class="font-serif">ROBULATOR</h1>
 
                <h3>    <!-- ...my two-way calculator!--></h3>
            </header>
 
-        <form class="mainpanel" onkeypress="return event.keyCode != 13"> <!-- !=13 to prevent enter refeshing the page -->
+        <form style = "position:relative; left:5px;" onkeypress="return event.keyCode != 13" class="pr-5"> <!-- !=13 to prevent enter refeshing the page -->
 
 
           <table>
             <tr>
-                <td>  <div class="screen" id="modeDisp"></div> </td>
+                <td>  <div class="font-serif" id="modeDisp"></div> </td>
 
                 <td><label class="switch"><input type="checkbox" id="modeCheckbox" onclick="calcMode()" ><span class="slider round"></span></label></td>
             </tr>
           </table>
           <div class="screen" id="modeExample"></div><br>
 
-          <input type="text" name="input" id="input" placeholder="INPUT">
-          <div class="screen" id="result"></div>
+          <div id="IO">
+              <input class="pl-2" type="text" name="input" id="input" placeholder="INPUT">
+              <div class="pl-2" id="result"></div>
+          </div>
 
-          <button type="button" id="buttons2" class="btn btn-info" onclick="submit1()">Robulate!</button>
+          <br>
+
+          <button style = "position:relative; top:-15px;" type="button" id="buttons2" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="submit1()">Robulate!</button>
 
        </form>
 
-       </div> <!-- End Container-->
-
-       <table class="numberpad">
 
 
+       <table style = "position:relative; left:20px;">
 
+         <tr class="grid grid-cols-4 gap-2">
+          <td><button type="button" id="buttons3" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="clear1()">C</button></td>
+          <td><button type="button" id="buttons4" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="multiplyIt()">*</button></td>
+          <td><button type="button" id="buttons5" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="divideIt()">/</button></td>
+          <td><button type="button" id="buttons19" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="percentage()">%</button></td>
 
-         <tr>
-          <td><button type="button" id="buttons3" class="btn btn-info" onclick="clear1()">C</button></td>
-          <td><button type="button" id="buttons4" class="btn btn-info" onclick="multiplyIt()">*</button></td>
-          <td><button type="button" id="buttons5" class="btn btn-info" onclick="divideIt()">/</button></td>
-          <td><button type="button" id="buttons19" class="btn btn-info" onclick="percentage()">%</button></td>
         </tr>
 
-         <tr>
-          <td><button type="button" id="buttons16" class="btn btn-info" onclick="decimal()">.</button></td>
-          <td><button type="button" id="buttons18" class="btn btn-info" onclick="plusnum()">+</button></td>
-          <td><button type="button" id="buttons17" class="btn btn-info" onclick="minusnum()">-</button></td>
-          <td><button type="button" id="buttons20" class="btn btn-info" onclick="backButton()">BK</button></td>
+         <tr class="grid grid-cols-4 gap-2">
+          <td><button type="button" id="buttons16" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="decimal()">.</button></td>
+          <td><button type="button" id="buttons18" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="plusNum()">+</button></td>
+          <td><button type="button" id="buttons17" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="minusNum()">-</button></td>
+          <td><button type="button" id="buttons20" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-3 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="backButton()">BK</button></td>
         </tr>
 
-        <tr>
-          <td><button type="button" id="buttons6" class="btn btn-info" onclick="num1()">1</button></td>
-          <td><button type="button" id="buttons7" class="btn btn-info" onclick="num2()">2</button></td>
-          <td><button type="button" id="buttons8" class="btn btn-info" onclick="num3()">3</button></td>
+        <tr class="grid grid-cols-4 gap-2">
+          <td><button type="button" id="buttons6" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="num1()">1</button></td>
+          <td><button type="button" id="buttons7" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="num2()">2</button></td>
+          <td><button type="button" id="buttons8" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="num3()">3</button></td>
         </tr>
 
-        <tr>
-          <td><button type="button" id="buttons9" class="btn btn-info" onclick="num4()">4</button></td>
-          <td><button type="button" id="buttons10" class="btn btn-info" onclick="num5()">5</button></td>
-          <td><button type="button" id="buttons11" class="btn btn-info" onclick="num6()">6</button></td>
+        <tr class="grid grid-cols-4 gap-2">
+          <td><button type="button" id="buttons9" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="num4()">4</button></td>
+          <td><button type="button" id="buttons10" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="num5()">5</button></td>
+          <td><button type="button" id="buttons11" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="num6()">6</button></td>
         </tr>
 
-        <tr>
-          <td><button type="button" id="buttons12" class="btn btn-info" onclick="num7()">7</button></td>
-          <td><button type="button" id="buttons13" class="btn btn-info" onclick="num8()">8</button></td>
-          <td><button type="button" id="buttons14" class="btn btn-info" onclick="num9()">9</button></td>
+        <tr class="grid grid-cols-4 gap-2">
+          <td><button type="button" id="buttons12" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="num7()">7</button></td>
+          <td><button type="button" id="buttons13" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="num8()">8</button></td>
+          <td><button type="button" id="buttons14" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="num9()">9</button></td>
         </tr>
 
-        <tr>
-          <td><button type="button" id="ghostButton" class="btn btn-info" >0</button></td>
-          <td><button type="button" id="buttons15" class="btn btn-info" onclick="num0()">0</button></td>
+        <tr class="grid grid-cols-4 gap-2">
+          <td><button type="button" id="ghostButton" class="bg-transparent text-transparent cursor-not-allowed py-2 px-2 rounded" >0</button></td>
+          <td><button type="button" id="buttons15" class="bg-gray-400 hover:bg-gray-300 text-gray-800 font-bold py-1 px-4 border-b-4 border-gray-700 hover:border-gray-500 rounded" onclick="num0()">0</button></td>
         </tr>
 
        </table>
+     </div> <!-- End Container-->
 
    <footer>
 
@@ -82,180 +89,7 @@
 
 
    <style>
-/***************** SLIDER *****************/
-   .switch {
-     position: relative;
-     display: inline-block;
-     width: 30px;
-     height: 20px;
-   }
 
-   /* Hide default HTML checkbox */
-   .switch input {
-     opacity: 0;
-     width: 0;
-     height: 0;
-   }
-
-   /* The slider */
-   .slider {
-     position: absolute;
-     cursor: pointer;
-     top: 0;
-     left: 0;
-     right: 0;
-     bottom: 0;
-     background-color: #ccc;
-     -webkit-transition: .4s;
-     transition: .4s;
-   }
-
-   .slider:before {
-     position: absolute;
-     content: "";
-     height: 13px;
-     width: 13px;
-     left: 2px;
-     bottom: 4px;
-     background-color: white;
-     -webkit-transition: .4s;
-     transition: .4s;
-   }
-
-   input:checked + .slider {
-     background-color: #2196F3;
-   }
-
-   input:focus + .slider {
-     box-shadow: 0 0 1px #2196F3;
-   }
-
-   input:checked + .slider:before {
-     -webkit-transform: translateX(13px);
-     -ms-transform: translateX(13px);
-     transform: translateX(13px);
-   }
-
-   /* Rounded sliders */
-   .slider.round {
-     border-radius: 34px;
-   }
-
-   .slider.round:before {
-     border-radius: 50%;
-   }
-  /***************** SLIDER *****************/
-
-
-
-
-
-         .numberpad {
-             width: 250px;
-         }
-
-         h1 {
-           color: #ffffff;
-           font-size: 24;
-         }
-
-         h3 {
-           color: #0000CD;
-
-         }
-
-         #modeDisp,
-         #modeExample
-            {
-        color: #ffffff;
-        font-size: 12;
-        font-weight: bold;
-        width: 140px;
-        text-decoration: underline;
-
-         }
-
-        html {
-          background-image: url("img/tempCalcBack.png");
-          background-repeat: no-repeat; /* Do not repeat the image */
-          background-size: cover; /* Resize the background image to cover the entire container */
-          height: 480px;
-          width: 280px;
-        }
-
-       .mainpanel {
-
-
-       }
-
-       #input,
-       #result
-
-       {
-
-        /*   float: center; */
-          border: none;
-          border-width: 0;
-          box-shadow: none;
-          background-blend-mode: overlay;
-          background-color: rgba(0,0,0,0.8);
-          color: #FFF;
-          width: 250px;
-      }
-
-
-       #buttons2
-        {
-          /* float: left;  */
-       background:#dbdbdb;
-       max-width: 80px;
-       min-width: 80px;
-       border-radius: 8px;
-       }
-
-       #buttons3,
-       #buttons4,
-       #buttons5,
-       #buttons16,
-       #buttons17,
-       #buttons18,
-       #buttons6,
-       #buttons7,
-       #buttons8,
-       #buttons9,
-       #buttons10,
-       #buttons11,
-       #buttons12,
-       #buttons13,
-       #buttons14,
-       #buttons19,
-       #buttons20
-       {
-      /*      float: left; */
-       background:#dbdbdb;
-       max-width: 50px;
-       min-width: 50px;
-       border-radius: 8px;
-
-
-       }
-
-       #buttons15
-
-       {
-        float: centre;
-       background:#dbdbdb;
-       max-width: 50px;
-       min-width: 50px;
-       border-radius: 8px;
-       }
-
-       #ghostButton
-       {
-        background: transparent;
-        border: none;
-        font-size:0;
-       }
        </style>
 
 
@@ -272,8 +106,8 @@
    var percentOfResult = 0;
    var sumIndicator = 0;
    var sum = 0;
-   var multclick = 0;
-   var divclick = 0;
+   var multClick = 0;
+   var divClick = 0;
    var a = 0;
    var perc = 0;
    var str = 0;
@@ -283,6 +117,7 @@
    var savedInput = 0;
    var mode = "algebra";
    var percOperator = 0;
+   var deciCheck = 0;
    document.getElementById("result").innerHTML = " = ";
    document.getElementById("modeDisp").innerHTML="ALGEBRA MODE";
    document.getElementById("modeExample").innerHTML="E.g. 1+(2*3) = 7";
@@ -351,11 +186,11 @@
    document.getElementById("input").value += 0;
     }
 
-   function minusnum(){
+   function minusNum(){
    document.getElementById("input").value += "-"; //adds "-" to the end of the input
    }
 
-   function plusnum(){
+   function plusNum(){
    document.getElementById("input").value += "+"; //adds "+" to the end of the input
    }
 
@@ -390,8 +225,8 @@
      document.getElementById("input").value = "";
      document.getElementById("result").innerHTML = " = ";
      sumIndicator = 0;
-     multclick = 0;
-     divclick = 0;
+     multClick = 0;
+     divClick = 0;
      a = 0;
      str = 0;
      result = 0;
@@ -408,25 +243,48 @@
     inputArray = str.split("");//enters contents of input str into input array
 
 //PARSING INVALID CHARS OR COMBINATIONS
+//Pre display input correction
     for (let b = 0; b < inputArray.length; b++){
-        if (inputArray[b] == "%"){
-          inputArray.splice(b+1,inputArray.length-1);
+
+      if (isNaN(inputArray[b]) == true && inputArray[b] !== "-" && inputArray[b] !== "+" && inputArray[b] !== "." && inputArray[b] !== "*" && inputArray[b] !== "/" && inputArray[b] !== "%"){
+        inputPopList.push(b);
+      }
+
+      if (inputArray[b] == "." && inputArray[b+1] == "."){
+        inputPopList.push(b);
+      }
+
+      if (inputArray[b] == "%"){
+        inputArray.splice(b+1,inputArray.length-1);
+      }
+
+    }
+
+    for (let b = inputPopList.length -1; b >= 0; b--){
+      inputArray.splice(inputPopList[b],1);
+    }
+
+    inputPopList.splice(0,inputPopList.length);
+    str = inputArray.join("");
+    document.getElementById("input").value = str;
+
+    savedInput = document.getElementById("input").value;//saves the input to put it back at the end
+
+//Post display input correction
+    for (let b = 0; b < inputArray.length; b++){
+
+        if (inputArray[b] == "." && isNaN(inputArray[b-1]) == true){
+          if(inputArray[b-1] == "+" || inputArray[b-1] == "-" || inputArray[b-1] == "*" || inputArray[b-1] == "/"){
+            inputArray.splice(b,0,"0");
+          }
         }
-        if (isNaN(inputArray[b]) == true && inputArray[b] !== "-" && inputArray[b] !== "+" && inputArray[b] !== "." && inputArray[b] !== "*" && inputArray[b] !== "/" && inputArray[b] !== "%"){
-          inputPopList.push(b);
-        }
-        if (inputArray[b] == " "){
-          inputPopList.push(b);
-        }
-        if (inputArray[b] == "." && inputArray[b+1] == "."){
-          inputPopList.push(b);
-        }
+
         if (inputArray[b] == "%" && isNaN(inputArray[b-1]) == true && inputArray[b-1] !== "*" && inputArray[b-1] !== "/"){
           document.getElementById("result").innerHTML = "PLEASE CHECK INPUT";
           return;
         }
         if (inputArray[b] == "*" || inputArray[b] == "/"){
-          if(inputArray[b+1] == "*" || inputArray[b+1] == "/"){
+          if(inputArray[b+1] == "*" || inputArray[b+1] == "/" || inputArray[b+1] == "%" || b == inputArray.length - 1){
             document.getElementById("result").innerHTML = "PLEASE CHECK INPUT";
             return;
           }
@@ -439,21 +297,17 @@
         }
     } //end of parsing inputArray for loop
 
-    for (let b = inputPopList.length -1; b >= 0; b--){
-      inputArray.splice(inputPopList[b],1);
-    }
-    inputPopList.splice(0,inputPopList.length);
     str = inputArray.join("");
     document.getElementById("input").value = str;
 
-    savedInput = document.getElementById("input").value;//saves the input to put it back at the end
+    //savedInput = document.getElementById("input").value;//saves the input to put it back at the end
 
 //PERCENTAGE CALCULATION PREP
     if(inputArray[inputArray.length - 1] == "%"){
       calcPercentage = 1;
       inputArray.pop(inputArray.length - 1);
       for(var b = inputArray.length - 1; b >= 0; --b){
-        if (isNaN(inputArray[b]) == false){
+        if (isNaN(inputArray[b]) == false || inputArray[b] == "."){
           temp.unshift(inputArray[b]);
           inputArray.pop(b);
         }else{
@@ -475,8 +329,8 @@
     }
 
     while (multRDivCount >= 0){
-       multclick = 0;
-       divclick = 0;
+       multClick = 0;
+       divClick = 0;
        window.sumIndicator = 0;
        inputArray.splice(0,inputArray.length); //empties display array
        wrkNums.splice(0,wrkNums.length);//empties number array
@@ -500,7 +354,7 @@
                    wrkNums.push(a);//push a as one item into array of number we calculate from
                    temp.splice(0,temp.length);// empties temp array
                    wrkNums.push("*");//pushes "*" to working array
-                   multclick = 1;
+                   multClick = 1;
                    window.sumIndicator = 0; //used to fix having a symbol after multiplication or division. This also means that there must be a "+" even if not input by user
 
                      if (inputArray[b+1] >= 0 && inputArray[b+1] !== "-" && inputArray[b+1] !== "+"){ // add "+" to input before num after "*" as sumIndicator was zeroed previously to accomodate having a symbol after multiplication or division.
@@ -513,7 +367,7 @@
                    wrkNums.push(a);//push a as one item into array of number we calculate from
                    temp.splice(0,temp.length);// empties temp array
                    wrkNums.push("/");//pushes "/" to working array
-                   divclick = 1;
+                   divClick = 1;
                    window.sumIndicator = 0; //used to fix parsing error caused by having a symbol after multiplication or division. This also means that there must be a "+" even if not input by user
 
                    if (inputArray[b+1] >= 0 && inputArray[b+1] !== "-" && inputArray[b+1] !== "+"){ // add "+" to input before the num after "/" as sumIndicator was zeroed previously to accomodate having a symbol after multiplication or division.
@@ -532,12 +386,12 @@
                    temp.push(inputArray[b]);
                   }
 
-                 if (wrkNums.indexOf("*") > wrkNums.indexOf("/") && divclick == 1){ //checks if there is multiplication after division and prevents the multiplication happening first
-                   multclick = 0;
+                 if (wrkNums.indexOf("*") > wrkNums.indexOf("/") && divClick == 1){ //checks if there is multiplication after division and prevents the multiplication happening first
+                   multClick = 0;
                   }
 
 
-                 if (inputArray.length - 1 == b && multclick == 1 && loop == 0){
+                 if (inputArray.length - 1 == b && multClick == 1 && loop == 0){
 /****ALGEBRAIC MULTIPLICATION******/
                    if(mode == "algebra"){
                        a = temp.join(""); // join temp array as sting a
@@ -574,7 +428,7 @@
                      }
                   }
 
-                  if (inputArray.length - 1 == b && divclick == 1 && loop == 0){
+                  if (inputArray.length - 1 == b && divClick == 1 && loop == 0){
 /**ALGEBRAIC DIVISION***/
                     if(mode == "algebra"){
                         a = temp.join(""); // join temp array as sting a
@@ -623,7 +477,7 @@
 
 
 /****SUMMING****/
-      if (multclick == 0 && divclick == 0){//if there is no multiplication or division we can just sum up
+      if (multClick == 0 && divClick == 0){//if there is no multiplication or division we can just sum up
         a = temp.join("");// join temp array as sting a
         wrkNums.push(a);//pushes it to the working array
         for (var i = 0, sum = 0; i < wrkNums.length; sum += parseFloat(wrkNums[i++])){}//summs up the contents of the working array
@@ -634,7 +488,7 @@
       document.getElementById("input").value = savedInput;//puts the original input back
 
       if (calcPercentage == 1){
-          perc = "."+perc;
+          perc = perc / 100;
           percentOfResult = result * perc;
           if(percOperator == "*"){
             result = result * perc;
